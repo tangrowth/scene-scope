@@ -72,3 +72,11 @@ a {
 .in {
   transform: translateX(100%);
 }
+
+.company-text {
+  display: block;
+}
+
+.company-full-text {
+  display: none;
+}

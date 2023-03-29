@@ -22,7 +22,7 @@
           <li><a href="/register">新規登録</a></li>
           @endguest
           @auth
-          <li><a href="#">マイページ</a></li>
+          <li><a href="{{ route('mypage') }}">マイページ</a></li>
           <li>
             <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="header_top_btn">ログアウト</a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

@@ -18,4 +18,8 @@ class Reservation extends Model
     {
         return $this->belongsTo(Performance::class);
     }
+    public function date()
+    {
+        return $this->belongsTo(Date::class);
+    }
 }
