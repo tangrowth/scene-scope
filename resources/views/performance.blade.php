@@ -16,6 +16,12 @@
     </div>
   </div>
   @auth
+  @if($reservation)
+  <div class="pf-reservation">
+    <p>予約情報</p>
+    @include('common.reserve', ['$reservation'=>$reservation])
+  </div>
+  @else
   <div class="pf-reservation">
     <p>公演予約</p>
     <form action="{{ route('reserve.confirm') }}" method="POST">
@@ -44,6 +50,12 @@
       <input type="submit">
     </form>
   </div>
+  @endif
   @endauth
+  @guest
+  <p>予約にはログインが必要です</p>
+  <a href="/login">ログインはこちら</a>
+  <a href="../register">新規登録はこちら</a>
+  @endguest
 </div>
 @endsection

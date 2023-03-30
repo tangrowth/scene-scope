@@ -3,20 +3,33 @@
 namespace App\Http\Controllers;
 
 use App\Models\Performance;
+use App\Models\Reservation;
+use App\Models\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PerformanceController extends Controller
 {
     public function index()
     {
         $performances = Performance::orderBy('created_at', 'desc')->get();
-        return view('index',['performances'=>$performances]);
+        $companies = Company::orderBy('created_at', 'desc')->get();
+        return view('index',['performances' => $performances, 'companies' => $companies]);
     }
 
     public function show($id)
     {
+        if (Auth::check()){
         $performance = Performance::find($id);
-        return view('performance',['performance' => $performance]);
+        $user_id = Auth::user()->id;
+        $reservation = Reservation::where('user_id', $user_id)
+        ->where('performance_id', $id)
+        ->first();
+        return view('performance',['performance' => $performance, 'reservation' => $reservation]);
+        } else {
+            $performance = Performance::find($id);
+            return view('performance', ['performance' => $performance]);
+        }
     }
 
     /**
