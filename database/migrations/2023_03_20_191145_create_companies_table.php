@@ -17,8 +17,8 @@ class CreateCompaniesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->string('web_site_url');
-            $table->string('img_url');
+            $table->string('web_site_url')->nullable();
+            $table->string('img_url')->nullable();
             $table->timestamps();
         });
     }

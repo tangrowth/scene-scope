@@ -6,13 +6,10 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CompanyFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
+        $imagePath = 'img/catface.jpg';
+
         return [
             'name' => $this->faker->word,
             'description'
@@ -20,7 +17,7 @@ class CompanyFactory extends Factory
             'web_site_url'
             => $this->faker->url,
             'img_url'
-            => $this->faker->url,
+            => $imagePath,
         ];
     }
 }

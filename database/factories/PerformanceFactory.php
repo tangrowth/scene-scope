@@ -3,16 +3,14 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Performance;
 
 class PerformanceFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array
-     */
     public function definition()
     {
+        $imagePath = 'img/cat.jpg';
+
         return [
             'title' => $this->faker->word,
             'description'
@@ -25,6 +23,8 @@ class PerformanceFactory extends Factory
             => $this->faker->url,
             'company_id'
             => $this->faker->numberBetween(1, 3),
+            'img_url'
+            => $imagePath,
         ];
     }
 }

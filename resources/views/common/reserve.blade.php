@@ -1,5 +1,5 @@
 <div class="reserve-card">
-  <div class="reserve-card-img"><img src="{{$reservation->performance->img_url}}" alt="画像なし"></div>
+  <div class="reserve-card-img"><img src="{{ asset('/storage/' . $reservation->performance->img_url) }}" alt="画像なし"></div>
   <div class="reserve-card-content">
     <a href="{{ route('performance', ['id' => $reservation->performance->id]) }}">{{ $reservation->Performance->title }}</a>
     <table>
@@ -21,4 +21,5 @@
       </tr>
     </table>
   </div>
+  <button id="delete-btn"><img src="{{ asset('storage/img/cross.png') }}" alt=""></button>
 </div>

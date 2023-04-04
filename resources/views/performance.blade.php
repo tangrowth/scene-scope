@@ -1,29 +1,56 @@
 @extends('layouts.header')
 
 @section('main')
-<h2 class="main-title">{{$performance->title}}</h2>
 <div class="performance">
-  <div class="pf-detail">
-    <div class="pf-detail-img"><img src="{{$performance->img_url}}" alt="{{$performance->title}}"></div>
-    <div class="pf--detail-content">
-      <p class="pf-detail-title">{{$performance->title}}</p>
-      <p class="pf-detail-company">{{$performance->Company->name}}</p>
-      <p class="pf-detail-des">{{$performance->description}}</p>
-      <p class="pf-detail-venue">{{$performance->venue}}</p>
-      @foreach($performance->dates as $date)
-      <p class="pf-detail-date">{{$date->date}}</p>
+  <div class="pf-detail-card">
+    <div class="pf-card-img"><img src="{{ asset('/storage/' . $performance->img_url) }}" alt="{{$performance->title}}"></div>
+    <table class="pf-detail-info">
+      <tr>
+        <th>タイトル</th>
+        <td>{{$performance->title}}</td>
+      </tr>
+      <tr>
+        <th>劇団</th>
+        <td>{{$performance->Company->name}}</td>
+      </tr>
+      <tr>
+        <th>あらすじ</th>
+        <td>{{$performance->description}}</td>
+      </tr>
+      <tr>
+        <th>会場</th>
+        <td>{{$performance->venue}}</td>
+      </tr>
+      <tr>
+        <th>公演日</th>
+        <td>{{$performance->dates->first()->date}}</td>
+      </tr>
+      @foreach($performance->dates->slice(1) as $date)
+      <tr>
+        <th></th>
+        <td>{{$date->date}}</td>
+      </tr>
       @endforeach
-    </div>
+    </table>
   </div>
-  @auth
-  @if($reservation)
   <div class="pf-reservation">
-    <p>予約情報</p>
-    @include('common.reserve', ['$reservation'=>$reservation])
-  </div>
-  @else
-  <div class="pf-reservation">
-    <p>公演予約</p>
+    <div class="pf-reservation-detail">
+      @auth
+      @if($reservation)
+      <p class="pf-reservation-title">予約情報</p>
+      <table>
+        <tr>
+          <th>公演日</th>
+          <td>{{ $reservation->Date->date }}</td>
+        </tr>
+        <tr>
+          <th>予約人数</th>
+          <td>{{ $reservation->number }}人</td>
+        </tr>
+      </table>
+      <img src="{{ asset('storage/img/cross.png') }}" alt="">
+    @else
+    <p class="pf-reservation-title">公演予約</p>
     <form action="{{ route('reserve.confirm') }}" method="POST">
       @csrf
       <table>
@@ -36,7 +63,7 @@
             </select></td>
         </tr>
         <tr>
-          <th>公演日を入力してください</th>
+          <th>公演日</th>
           <td>
             <select name="date_id">
               @foreach($performance->dates as $date)
@@ -47,15 +74,16 @@
         </tr>
       </table>
       <input type="hidden" name="performance_id" value="{{$performance->id}}">
-      <input type="submit">
+      <input type="submit" class="pf-reservation-btn">
     </form>
+    @endif
+    @endauth
+    @guest
+    <p class="pf-reservation-title">予約にはログインが必要です</p>
+    <a href="/login">ログインはこちら</a>
+    <a href="../register">新規登録はこちら</a>
   </div>
-  @endif
-  @endauth
-  @guest
-  <p>予約にはログインが必要です</p>
-  <a href="/login">ログインはこちら</a>
-  <a href="../register">新規登録はこちら</a>
   @endguest
+</div>
 </div>
 @endsection

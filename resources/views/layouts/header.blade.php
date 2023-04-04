@@ -16,7 +16,6 @@
       <nav class="menu-nav" id="nav">
         <ul>
           <li><a href="{{ route('home') }}">ホーム</a></li>
-          <li><a href="#">劇団を検索</a></li>
           @guest
           <li><a href="/login">ログイン</a></li>
           <li><a href="/register">新規登録</a></li>
