@@ -49,9 +49,9 @@
       <h1>SceneScope</h1>
     </div>
     <div class="search">
-      <form action="#" method="get">
+      <form action="{{ route('search') }}" method="get">
         @csrf
-        <input type="text" name="input">
+        <input type="text" name="input" placeholder="検索する">
       </form>
     </div>
   </header>

@@ -1,11 +1,11 @@
 @extends('layouts.header')
 
 @section('main')
-<h2>予約確認</h2>
-<div>
+<div class="reserve-comfirm">
+  <h2 class="main-pf-title">予約確認</h2>
   <form action="{{ route('reserve.store') }}" method="POST">
     @csrf
-    <table>
+    <table class="reserve-comfirm-info">
       <tr>
         <th>公演</th>
         <td>{{$data['performance']->title}}</td>

@@ -14,6 +14,6 @@ class PerformancesTableSeeder extends Seeder
      */
     public function run()
     {
-        Performance::factory()->count(3)->create();
+        Performance::factory()->count(10)->create();
     }
 }

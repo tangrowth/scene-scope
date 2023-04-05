@@ -16,6 +16,5 @@ class DatabaseSeeder extends Seeder
         $this->call(PerformancesTableSeeder::class);
         $this->call(CompaniesTableSeeder::class);
         $this->call(DatesTableSeeder::class);
-        $this->call(FavoritesTableSeeder::class);
     }
 }

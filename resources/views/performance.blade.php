@@ -21,6 +21,7 @@
         <th>会場</th>
         <td>{{$performance->venue}}</td>
       </tr>
+      @if (@isset($performance->dates))
       <tr>
         <th>公演日</th>
         <td>{{$performance->dates->first()->date}}</td>
@@ -31,13 +32,15 @@
         <td>{{$date->date}}</td>
       </tr>
       @endforeach
+      @endif
     </table>
   </div>
   <div class="pf-reservation">
     <div class="pf-reservation-detail">
       @auth
-      @if($reservation)
+      @if($reservations)
       <p class="pf-reservation-title">予約情報</p>
+      @foreach ($reservations as $reservation)
       <table>
         <tr>
           <th>公演日</th>
@@ -48,42 +51,50 @@
           <td>{{ $reservation->number }}人</td>
         </tr>
       </table>
-      <img src="{{ asset('storage/img/cross.png') }}" alt="">
-    @else
-    <p class="pf-reservation-title">公演予約</p>
-    <form action="{{ route('reserve.confirm') }}" method="POST">
-      @csrf
-      <table>
-        <tr>
-          <th>申込み人数</th>
-          <td><select name="number">
-              <option value="1">1人</option>
-              <option value="2">2人</option>
-              <option value="3">3人</option>
-            </select></td>
-        </tr>
-        <tr>
-          <th>公演日</th>
-          <td>
-            <select name="date_id">
-              @foreach($performance->dates as $date)
-              <option value="{{$date->id}}">{{$date->date}}</option>
-              @endforeach
-            </select>
-          </td>
-        </tr>
-      </table>
-      <input type="hidden" name="performance_id" value="{{$performance->id}}">
-      <input type="submit" class="pf-reservation-btn">
-    </form>
-    @endif
-    @endauth
-    @guest
-    <p class="pf-reservation-title">予約にはログインが必要です</p>
-    <a href="/login">ログインはこちら</a>
-    <a href="../register">新規登録はこちら</a>
+      <form action="{{ route('reserve.destroy',['id' => $reservation->id]) }}" method="post" onsubmit="return confirmCancel()">
+        @csrf
+        <button class="delete-btn"><img src="{{ asset('storage/img/cross.png') }}"></button>
+      </form>
+      <script>
+        function confirmCancel() {
+          return window.confirm('予約をキャンセルしますか？');
+        }
+        </script>
+        @endforeach
+      @endif
+      <p class="pf-reservation-title">公演予約</p>
+      <form action="{{ route('reserve.confirm') }}" method="POST">
+        @csrf
+        <table>
+          <tr>
+            <th>申込み人数</th>
+            <td><select name="number">
+                <option value="1">1人</option>
+                <option value="2">2人</option>
+                <option value="3">3人</option>
+              </select></td>
+          </tr>
+          <tr>
+            <th>公演日</th>
+            <td>
+              <select name="date_id">
+                @foreach($performance->dates as $date)
+                <option value="{{$date->id}}">{{$date->date}}</option>
+                @endforeach
+              </select>
+            </td>
+          </tr>
+        </table>
+        <input type="hidden" name="performance_id" value="{{$performance->id}}">
+        <input type="submit" class="pf-reservation-btn">
+      </form>
+      @endauth
+      @guest
+      <p class="pf-reservation-title">予約にはログインが必要です</p>
+      <a href="../login">ログインはこちら</a>
+      <a href="../register">新規登録はこちら</a>
+    </div>
+    @endguest
   </div>
-  @endguest
-</div>
 </div>
 @endsection
