@@ -1,4 +1,7 @@
 @extends('layouts.header')
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/main.css') }}">
+@endsection
 
 @section('main')
 <h2 class="main-pf-title">マイページ</h2>
@@ -13,6 +16,12 @@
   @else
   <p>予約はありません</p>
   @endif
+</div>
+<div class="companies">
+  <h2 class="main-com-title">お気に入りの劇団</h2>
+  <div class=" com-cards">
+    @include('common.company', ['companies' => $companies])
+  </div>
 </div>
 <div class="performances">
   <h3>登録情報</h3>

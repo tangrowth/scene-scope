@@ -1,5 +1,9 @@
 @extends('layouts.header')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/main.css') }}">
+@endsection
+
 @section('main')
 <div class="reserve-comfirm ">
   <p>ご予約ありがとうございます！</p>

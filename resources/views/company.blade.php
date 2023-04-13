@@ -1,4 +1,7 @@
 @extends('layouts.header')
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/main.css') }}">
+@endsection
 
 @section('main')
 <h2>{{ $company->name }}</h2>

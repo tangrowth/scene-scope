@@ -1,0 +1,108 @@
+a {
+  text-decoration: none;
+}
+.menu-nav a {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.menu-nav {
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  left: -100%;
+  background: #065758;
+  transition: .7s;
+  text-align: center;
+  z-index: 10;
+}
+
+.menu-nav ul {
+  padding-top: 80px;
+}
+
+.menu-nav ul li {
+  list-style-type: none;
+  margin-top: 50px;
+}
+
+.menu-btn {
+  display: inline-block;
+  width: 36px;
+  height: 32px;
+  cursor: pointer;
+  position: relative;
+  left: 30px;
+  top: 30px;
+  z-index: 10;
+}
+
+.menu__line--top,
+.menu__line--middle,
+.menu__line--bottom {
+  display: inline-block;
+  width: 100%;
+  height: 4px;
+  background-color: #000;
+  position: absolute;
+  transition: 0.5s;
+}
+
+.menu__line--top {
+  top: 0;
+}
+
+.menu__line--middle {
+  top: 14px;
+}
+
+.menu__line--bottom {
+  bottom: 0;
+}
+
+.menu-btn.open span:nth-of-type(1) {
+  top: 14px;
+  transform: rotate(45deg);
+}
+
+.menu-btn.open span:nth-of-type(2) {
+  opacity: 0;
+}
+
+.menu-btn.open span:nth-of-type(3) {
+  top: 14px;
+  transform: rotate(-45deg);
+}
+
+.in {
+  transform: translateX(100%);
+}
+
+.company-text {
+  display: block;
+}
+
+.company-full-text {
+  display: none;
+}
+
+.header {
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  height: 92px;
+}
+
+.title {
+  padding: 30px;
+  margin: auto;
+  background-color: #00999F;
+  border-radius: 46px;
+  color: #fff;
+}
+
+.search {
+  margin: auto 0;
+  padding: 30px;
+}

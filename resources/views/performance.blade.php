@@ -1,4 +1,7 @@
 @extends('layouts.header')
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/main.css') }}">
+@endsection
 
 @section('main')
 <div class="performance">
@@ -59,8 +62,8 @@
         function confirmCancel() {
           return window.confirm('予約をキャンセルしますか？');
         }
-        </script>
-        @endforeach
+      </script>
+      @endforeach
       @endif
       <p class="pf-reservation-title">公演予約</p>
       <form action="{{ route('reserve.confirm') }}" method="POST">

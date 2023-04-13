@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Performance;
 use App\Models\Reservation;
 use App\Models\Company;
+use App\Models\Favorite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,8 +15,10 @@ class PerformanceController extends Controller
     {
         $performances = Performance::orderBy('created_at', 'desc')->get();
         $companies = Company::orderBy('created_at', 'desc')->get();
-        return view('index',['performances' => $performances, 'companies' => $companies]);
+        $favorites = Favorite::where('user_id', Auth::user()->id)->get();
+        return view('index', ['performances' => $performances, 'companies' => $companies, 'favorites' => $favorites]);
     }
+
 
     public function show($id)
     {
