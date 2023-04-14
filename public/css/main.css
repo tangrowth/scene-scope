@@ -25,6 +25,7 @@ main {
 .pf-cards {
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: 30px;
 }
 
 .pf-card {
@@ -89,6 +90,7 @@ main {
 .com-cards {
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: 30px;
 }
 
 .com-card {
@@ -222,6 +224,7 @@ main {
 
 .reserve-cards {
   display: flex;
+  margin-bottom: 30px;
 }
 
 .reserve-card {

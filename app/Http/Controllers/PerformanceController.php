@@ -13,10 +13,16 @@ class PerformanceController extends Controller
 {
     public function index()
     {
-        $performances = Performance::orderBy('created_at', 'desc')->get();
-        $companies = Company::orderBy('created_at', 'desc')->get();
-        $favorites = Favorite::where('user_id', Auth::user()->id)->get();
+        $performances = Performance::orderBy('created_at', 'desc')->take(4)->get();
+        $companies = Company::orderBy('created_at', 'desc')->take(4)->get();
+        $favorites = Auth::user() ? Favorite::where('user_id', Auth::user()->id)->get() : null;
         return view('index', ['performances' => $performances, 'companies' => $companies, 'favorites' => $favorites]);
+    }
+
+    public function all()
+    {
+        $performances = Performance::orderBy('created_at', 'desc')->get();
+        return view('performance.all', ['performances' => $performances]);
     }
 
 
@@ -38,6 +44,7 @@ class PerformanceController extends Controller
     public function search(Request $request){
         $performances = Performance::where('title', 'LIKE', "%{$request->input}%")->get();
         $companies = Company::where('name' , 'LIKE', "%{$request->input}%")->get();
-        return view('index', ['performances' => $performances, 'companies' => $companies]);
+        $favorites = Auth::user() ? Favorite::where('user_id', Auth::user()->id)->get() : null;
+        return view('index', ['performances' => $performances, 'companies' => $companies, 'favorites' => $favorites]);
     }
 }
