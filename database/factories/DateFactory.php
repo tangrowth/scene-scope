@@ -15,7 +15,7 @@ class DateFactory extends Factory
     {
         return [
             'date' => $this->faker->dateTime,
-            'performance_id' => $this->faker->numberBetween(1, 13),
+            'performance_id' => $this->faker->numberBetween(1, 10),
         ];
     }
 }

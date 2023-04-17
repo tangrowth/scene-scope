@@ -13,13 +13,19 @@ class CompanyController extends Controller
     public function index($id)
     {
         $company = Company::find($id);
-        return view('company', ['company' => $company]);
+        return view('frontend.company.show', compact('company'));
     }
 
     public function all()
     {
         $companies = Company::orderBy('created_at', 'desc')->get();
         $favorites = Auth::user() ? Favorite::where('user_id', Auth::user()->id)->get() : null;
-        return view('company.all', ['companies' => $companies, 'favorites' => $favorites]);
+        return view('frontend.company.index', compact('companies', 'favorites'));
+    }
+
+    public function create(Request $request)
+    {
+        $form = $request->all();
+        return redirect('index');
     }
 }

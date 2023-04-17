@@ -5,9 +5,9 @@
 
 @section('main')
 <div class="performance">
-  <div class="pf-detail-card">
-    <div class="pf-card-img"><img src="{{ asset('/storage/' . $performance->img_url) }}" alt="{{$performance->title}}"></div>
-    <table class="pf-detail-info">
+  <div class="card-detail">
+    <div class="card-img"><img src="{{ asset('/storage/' . $performance->img_url) }}" alt="{{$performance->title}}"></div>
+    <table class="detail-table">
       <tr>
         <th>タイトル</th>
         <td>{{$performance->title}}</td>

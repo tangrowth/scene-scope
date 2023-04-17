@@ -17,6 +17,10 @@ class UserController extends Controller
         $favorites = Favorite::where('user_id', $user->id)->get();
         $companyIds = $favorites->pluck('company_id');
         $companies = Company::whereIn('id', $companyIds)->get();
-        return view('mypage',['user'=>$user,'reservations' => $reservations, 'favorites' => $favorites, 'companies' => $companies]);
+        return view('frontend.mypage', compact('user','reservations', 'favorites', 'companies'));
+    }
+
+    public function admin(){
+        return view('backend.index');
     }
 }

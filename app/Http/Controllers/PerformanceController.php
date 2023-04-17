@@ -16,13 +16,13 @@ class PerformanceController extends Controller
         $performances = Performance::orderBy('created_at', 'desc')->take(4)->get();
         $companies = Company::orderBy('created_at', 'desc')->take(4)->get();
         $favorites = Auth::user() ? Favorite::where('user_id', Auth::user()->id)->get() : null;
-        return view('index', ['performances' => $performances, 'companies' => $companies, 'favorites' => $favorites]);
+        return view('index', compact('performances', 'companies', 'favorites'));
     }
 
     public function all()
     {
         $performances = Performance::orderBy('created_at', 'desc')->get();
-        return view('performance.all', ['performances' => $performances]);
+        return view('frontend.performance.index', compact('performances'));
     }
 
 
@@ -34,10 +34,10 @@ class PerformanceController extends Controller
         $reservations = Reservation::where('user_id', $user_id)
         ->where('performance_id', $id)
         ->get();
-        return view('performance',['performance' => $performance, 'reservations' => $reservations]);
+        return view('frontend.performance.show',compact('performance', 'reservations'));
         } else {
             $performance = Performance::find($id);
-            return view('performance', ['performance' => $performance]);
+            return view('frontend.performance.show', compact('performance'));
         }
     }
 
@@ -45,6 +45,7 @@ class PerformanceController extends Controller
         $performances = Performance::where('title', 'LIKE', "%{$request->input}%")->get();
         $companies = Company::where('name' , 'LIKE', "%{$request->input}%")->get();
         $favorites = Auth::user() ? Favorite::where('user_id', Auth::user()->id)->get() : null;
-        return view('index', ['performances' => $performances, 'companies' => $companies, 'favorites' => $favorites]);
+        return view('index', compact('performances', 'companies', 'favorites'));
     }
+
 }

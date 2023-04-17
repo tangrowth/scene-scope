@@ -14,6 +14,6 @@ class DatesTableSeeder extends Seeder
      */
     public function run()
     {
-        Date::factory()->count(10)->create();
+        Date::factory()->count(30)->create();
     }
 }

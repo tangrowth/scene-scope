@@ -4,11 +4,11 @@
 @endsection
 
 @section('main')
-<div class="reserve-comfirm">
-  <h2 class="main-pf-title">予約確認</h2>
+<div class="container">
+  <h2 class="container-title">予約確認</h2>
   <form action="{{ route('reserve.store') }}" method="POST">
     @csrf
-    <table class="reserve-comfirm-info">
+    <table class="detail-table">
       <tr>
         <th>公演</th>
         <td>{{$data['performance']->title}}</td>

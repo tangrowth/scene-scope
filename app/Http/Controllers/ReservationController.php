@@ -10,14 +10,9 @@ use App\Models\Performance;
 
 class ReservationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        return view('reservation.thanks');
+        return view('frontend.reservation.thanks');
     }
 
     public function create(Request $request)
@@ -28,7 +23,7 @@ class ReservationController extends Controller
             'performance' =>Performance::where('id', $request->performance_id)->first(),
         );
         $inputs = $request->all();
-        return view('reservation.confirm', ['data' => $data, 'inputs' => $inputs]);
+        return view('frontend.reservation.confirm', ['data' => $data, 'inputs' => $inputs]);
     }
 
     public function store(Request $request)

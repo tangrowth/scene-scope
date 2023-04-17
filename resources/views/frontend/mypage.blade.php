@@ -4,11 +4,10 @@
 @endsection
 
 @section('main')
-<h2 class="main-pf-title">マイページ</h2>
-<div class="performances">
-  <h3>予約している公演</h3>
+<div class="container">
+  <h3 class="container-title">予約している公演</h3>
   @if (@isset($reservations))
-  <div class="reserve-cards">
+  <div class="container-cards">
     @foreach($reservations as $reservation)
     @include('common.reserve',['reservation'=>$reservation])
     @endforeach
@@ -17,15 +16,15 @@
   <p>予約はありません</p>
   @endif
 </div>
-<div class="companies">
-  <h2 class="main-com-title">お気に入りの劇団</h2>
-  <div class=" com-cards">
-    @include('common.company', ['companies' => $companies])
-  </div>
+<div class="container">
+  <h3 class="container-title">お気に入りの劇団</h2>
+    <div class="container-cards">
+      @include('common.company', ['companies' => $companies])
+    </div>
 </div>
-<div class="performances">
-  <h3>登録情報</h3>
-  <table>
+<div class="container">
+  <h3 class="container-title">登録情報</h3>
+  <table class="detail-table">
     <tr>
       <th>名前</th>
       <td>{{ $user->name }}</td>

@@ -6,7 +6,7 @@ main {
   padding: 10px 5%;
 }
 
-.performances {
+.container {
   background-color: #fff;
   border-radius: 20px;
   padding: 20px;
@@ -14,21 +14,23 @@ main {
   z-index: -10;
 }
 
-.main-pf-title {
-  background-color: #FFEF30;
-  color: #000;
+.container-title {
+  background-color: #00999F;
+  color: #fff;
   padding: 10px;
+  margin: 0 auto;
   text-align: center;
   border-radius: 15px;
+  width: 30%;
 }
 
-.pf-cards {
+.container-cards {
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 30px;
 }
 
-.pf-card {
+.container-card {
   position: relative;
   width: 22.5%;
   margin: 20px 1% 0px 1%;
@@ -38,17 +40,18 @@ main {
   background-color: #fff;
 }
 
-.pf-card:hover {
+.container-card:hover {
   position: relative;
-  top: 1px;
-  left: 1px;
+  top: 5px;
+  left: 5px;
+  box-shadow: 0px 0px 0px #81D2E4;
 }
 
-.pf-card-img {
+.card-img {
   width: 100%;
 }
 
-.pf-card-img img {
+.card-img img {
   width: 100%;
   border-radius: 15px 15px 0px 0px;
 }
@@ -62,90 +65,25 @@ main {
   padding: 5px;
   border-radius: 15px 0 0 0;
 }
-
-.pf-card-content {
-  padding: 10px;
-}
-
-.pf-card-content p {
-  margin-bottom: 5px;
-}
-
-.companies {
-  background-color: #fff;
-  border-radius: 20px;
-  padding: 20px;
-  margin: 10px 0;
-  z-index: -10;
-}
-
-.main-com-title {
-  background-color: #00999F;
-  color: #fff;
-  padding: 10px;
-  text-align: center;
-  border-radius: 15px;
-}
-
-.com-cards {
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 30px;
-}
-
-.com-card {
-  position: relative;
-  width: 22.5%;
-  margin: 20px 1% 0px 1%;
-  border: solid 1px #BCEDD8;
-  border-radius: 15px;
-  box-shadow: 5px 5px 3px #BCEDD8;
-}
-
-.com-card:hover {
-  position: relative;
-  top: 1px;
-  left: 1px;
-}
-
-.som-card-img {
-  width: 100%;
-}
-
-.com-card-img img {
-  width: 100%;
-  border-radius: 15px 15px 0px 0px;
-}
-
-.com-card-content {
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.com-card-content p {
-  margin-bottom: 5px;
-}
-
 .performance {
   display: flex;
   justify-content: space-between;
 }
 
-.pf-detail-card {
+.card-detail {
   width: 45%;
   background-color: #fff;
   margin: 20px 1% 0px 1%;
   border-radius: 15px;
 }
 
-.pf-detail-info {
+.detail-table {
   margin: 10px;
   border-collapse: separate;
   border-spacing: 7px;
 }
 
-.pf-detail-info th {
+.detail-table th {
   width: 20%;
 }
 
@@ -180,6 +118,25 @@ main {
 .pf-reservation-detail {
   text-align: center;
 }
+
+.pf-card-content {
+  padding: 10px;
+}
+
+.pf-card-content p {
+  margin-bottom: 5px;
+}
+
+.com-card-content {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.com-card-content p {
+  margin-bottom: 5px;
+}
+
 
 .delete-btn {
   background-color: transparent;

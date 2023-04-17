@@ -24,4 +24,8 @@ Route::middleware(['auth'])->group(function () {
   Route::post('/favorite/{id}', [FavoriteController::class, 'delete'])->name('favorite.off');
 });
 
+Route::middleware(['auth', 'can:admin'])->group(function (){
+  Route::get('/admin', [UserController::class, 'index'])->name('admin');
+  Route::get('/company/create', [CompanyController::class, 'create'])->name('company.create');
+}); 
 require __DIR__.'/auth.php';
