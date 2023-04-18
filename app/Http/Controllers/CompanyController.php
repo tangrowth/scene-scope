@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use App\Models\Favorite;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,9 +24,21 @@ class CompanyController extends Controller
         return view('frontend.company.index', compact('companies', 'favorites'));
     }
 
-    public function create(Request $request)
+    public function store(Request $request)
     {
-        $form = $request->all();
-        return redirect('index');
+        $user = User::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
+            'role' => 50,
+        ]);
+
+        $company = Company::create([
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'web_site_url' => $request->input('web_site_url'),
+            'user_id' => $user->id,
+        ]);
+        return redirect('/');
     }
 }

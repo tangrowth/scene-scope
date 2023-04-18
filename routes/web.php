@@ -25,7 +25,9 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth', 'can:admin'])->group(function (){
-  Route::get('/admin', [UserController::class, 'index'])->name('admin');
-  Route::get('/company/create', [CompanyController::class, 'create'])->name('company.create');
+  Route::get('/admin', [UserController::class, 'admin'])->name('admin');
+  Route::get('/admin/create/user', [UserController::class, 'create'])->name('admin.create');
+  Route::post('/admin/create/user', [UserController::class, 'store'])->name('admin.user');
+  Route::post('/admin/create/company', [CompanyController::class, 'store'])->name('admin.company');
 }); 
 require __DIR__.'/auth.php';

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Reservation;
 use App\Models\Favorite;
@@ -22,5 +23,20 @@ class UserController extends Controller
 
     public function admin(){
         return view('backend.index');
+    }
+
+    public function create(){
+        return view('backend.user.create');
+    }
+
+    public function store(UserRequest $request)
+    {
+        $user = [
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
+            'role' => 100, 
+        ];
+        return view('backend.company.create', compact('user'));
     }
 }

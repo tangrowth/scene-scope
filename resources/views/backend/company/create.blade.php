@@ -1,28 +1,30 @@
 @extends('layouts.header')
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+<link rel="stylesheet" href="{{ asset('css/main.css') }}">
 @endsection
 
 @section('main')
-<div>
-  <h1>劇団の追加</h1>
-  <form action="{{ route('company.create') }}" method="POST">
+<div class="container">
+  <h2 class="container-title">劇団の情報</h2>
+  <form action="{{ route('admin.company') }}" method="post">
     @csrf
     <table>
       <tr>
-        <td>劇団名</td>
-        <td><input type="text" name="name"></td>
+        <th>劇団名</th>
+        <td><input type="name" value="{{ $user['name'] }}" name="name" readonly></td>
       </tr>
       <tr>
-        <td>管理ユーザー</td>
-        <td><select name="user_id">
-          @foreach($users as $user)
-            <option value="{{ $user->id }}">{{ $user->name }}</option>
-          @endforeach
-        </select></td>
+        <th>劇団説明</th>
+        <td><textarea name="description" cols="30" rows="10"></textarea></td>
+      </tr>
+      <tr>
+        <th>公式サイト</th>
+        <td><input type="text" name="web_site_url"></td>
       </tr>
     </table>
-    <button>作成</button>
+    <input type="hidden" name="email" value="{{ $user['email'] }}">
+    <input type="hidden" name="password" value="{{ $user['password'] }}">
+    <button>確認画面に進む</button>
   </form>
 </div>
 @endsection
