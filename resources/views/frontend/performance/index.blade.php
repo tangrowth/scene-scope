@@ -4,8 +4,8 @@
 @endsection
 
 @section('main')
-<div class="performances">
-  <h2 class="main-pf-title">最新の公演</h2>
+<div class="container">
+  <h2 class="container-title">最新の公演</h2>
   @include('common.performance', ['performances' => $performances])
 </div>
 

@@ -21,6 +21,9 @@
           <li><a href="/login">ログイン</a></li>
           <li><a href="/register">新規登録</a></li>
           @endguest
+          @can('owner')
+          <li><a href="/admin">劇団メニュー</a></li>
+          @endcan
           @auth
           <li><a href="{{ route('mypage') }}">マイページ</a></li>
           <li>

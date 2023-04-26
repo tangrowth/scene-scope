@@ -8,6 +8,7 @@ use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Reservation;
 use App\Models\Favorite;
+use App\Models\Performance;
 
 
 class UserController extends Controller
@@ -22,7 +23,10 @@ class UserController extends Controller
     }
 
     public function admin(){
-        return view('backend.index');
+        $user = Auth::user();
+        $company = Company::where('user_id', $user->id)->first();
+        $performances = Performance::orderBy('created_at', 'desc')->where('company_id', $company->id)->get();
+        return view('backend.index', compact('performances'));
     }
 
     public function create(){

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\DateController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\PerformanceController;
 use App\Http\Controllers\ReservationController;
@@ -24,10 +25,18 @@ Route::middleware(['auth'])->group(function () {
   Route::post('/favorite/{id}', [FavoriteController::class, 'delete'])->name('favorite.off');
 });
 
-Route::middleware(['auth', 'can:admin'])->group(function (){
-  Route::get('/admin', [UserController::class, 'admin'])->name('admin');
+Route::middleware(['auth', 'can:owner'])->group(function () {
   Route::get('/admin/create/user', [UserController::class, 'create'])->name('admin.create');
   Route::post('/admin/create/user', [UserController::class, 'store'])->name('admin.user');
   Route::post('/admin/create/company', [CompanyController::class, 'store'])->name('admin.company');
+});
+
+Route::middleware(['auth', 'can:owner'])->group(function () {
+  Route::get('/admin', [UserController::class, 'admin'])->name('admin');
+  Route::get('/admin/create/performance', [PerformanceController::class, 'create'])->name('performance.create');
+  Route::post('/admin/create/performance/confirm', [PerformanceController::class, 'confirm'])->name('performance.confirm');
+  Route::
+  post('/admin/create/date', [DateController::class,'create'])->name('date.create');
+  Route::post('/admin/create/performance/store', [PerformanceController::class, 'store'])->name('performance.store');
 }); 
 require __DIR__.'/auth.php';

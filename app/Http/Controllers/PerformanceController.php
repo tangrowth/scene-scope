@@ -6,7 +6,9 @@ use App\Models\Performance;
 use App\Models\Reservation;
 use App\Models\Company;
 use App\Models\Favorite;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\PerformanceRequest;
 use Illuminate\Support\Facades\Auth;
 
 class PerformanceController extends Controller
@@ -47,5 +49,41 @@ class PerformanceController extends Controller
         $favorites = Auth::user() ? Favorite::where('user_id', Auth::user()->id)->get() : null;
         return view('index', compact('performances', 'companies', 'favorites'));
     }
+
+    public function create(){
+        return view('backend.performance.create');
+    }
+
+    public function confirm(PerformanceRequest $request){
+        $inputs = $request->all();
+        return view('backend.performance.confirm', compact('inputs'));
+    }
+
+    public function store(Request $request)
+    {
+        $user_id = Auth::id();
+        $company_id = User::find($user_id)->company->id;
+        $form = [
+            'user_id' => $user_id,
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'venue' => $request->input('venue'),
+            'web_site_url' => $request->input('web_site_url'),
+            'company_id' => $company_id
+        ];
+        $action = $request->input('action');
+        if ($action !== '公演を作成する') {
+            return redirect()
+                ->route('performance.create');
+        } else {
+            $performance = Performance::create($form);
+            foreach ($request->input('dates') as $date) {
+                $performance->dates()->create(['date' => $date]);
+            }
+            return redirect()->route('admin');
+        }
+    }
+
+
 
 }

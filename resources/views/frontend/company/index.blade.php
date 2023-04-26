@@ -4,8 +4,8 @@
 @endsection
 
 @section('main')
-<div class="companies">
-  <h2 class="main-com-title">劇団</h2>
+<div class="container">
+  <h2 class="container-title">劇団</h2>
   <div class=" com-cards">
     @include('common.company', ['companies' => $companies])
   </div>

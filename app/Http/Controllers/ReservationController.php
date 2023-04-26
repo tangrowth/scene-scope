@@ -23,7 +23,7 @@ class ReservationController extends Controller
             'performance' =>Performance::where('id', $request->performance_id)->first(),
         );
         $inputs = $request->all();
-        return view('frontend.reservation.confirm', ['data' => $data, 'inputs' => $inputs]);
+        return view('frontend.reservation.confirm', compact('data', 'inputs'));
     }
 
     public function store(Request $request)
