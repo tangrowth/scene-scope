@@ -44,7 +44,7 @@ a {
   display: inline-block;
   width: 100%;
   height: 4px;
-  background-color: #000;
+  background-color: #fff;
   position: absolute;
   transition: 0.5s;
 }
@@ -88,7 +88,7 @@ a {
 }
 
 .header {
-  background-color: #fff;
+  background-color: #065758;
   display: flex;
   justify-content: space-between;
   height: 92px;
@@ -97,9 +97,9 @@ a {
 .title {
   padding: 30px;
   margin: auto;
-  background-color: #00999F;
+  background-color: #fff;
   border-radius: 46px;
-  color: #fff;
+  color: #065758;
 }
 
 .search {

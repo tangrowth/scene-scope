@@ -12,7 +12,6 @@
 <div class="container">
   <h2 class="container-title">劇団</h2>
     @include('common.company', ['companies' => $companies])
-  </div>
   <a href="{{ route('company.all') }}" class="pf-reservation-btn">劇団をもっと見る</a>
 </div>
 @endsection

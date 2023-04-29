@@ -22,7 +22,10 @@
           <li><a href="/register">新規登録</a></li>
           @endguest
           @can('owner')
-          <li><a href="/admin">劇団メニュー</a></li>
+          <li><a href="{{ route('owner') }}">管理メニュー</a></li>
+          @endcan
+          @can('admin')
+          <li><a href="{{ route('admin') }}">管理メニュー</a></li>
           @endcan
           @auth
           <li><a href="{{ route('mypage') }}">マイページ</a></li>

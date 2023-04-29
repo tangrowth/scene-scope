@@ -20,15 +20,15 @@
             @csrf
             <input type="hidden" value="{{ $company->id }}" name="company_id">
             <button>
-              <img src="{{ asset('storage/img/heart_off.png') }}" alt="お気に入り">
+              <img src="{{ asset('images/heart_off.png') }}" alt="お気に入り">
             </button>
           </form>
           @endif
         </div>
         @endcan
-        @can('owner')
+        @can('admin')
         <div>
-          <a href="/">hay</a>
+          <button class="delete-btn"><img src="{{ asset('images/cross.png') }}"></button>
         </div>
         @endcan
       </div>

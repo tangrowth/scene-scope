@@ -34,5 +34,7 @@
       <td>{{ $user->email }}</td>
     </tr>
   </table>
+  <button><a href="{{ route('mypage.edit') }}">編集</a></button>
+  <button><a href="{{ route('password.edit') }}">パスワード編集</a></button>
 </div>
 @endsection

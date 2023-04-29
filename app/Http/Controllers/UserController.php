@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\EditUserRequest;
+use App\Http\Requests\EditPasswordRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Reservation;
 use App\Models\Favorite;
 use App\Models\Performance;
+use App\Models\User;
 
 
 class UserController extends Controller
@@ -22,11 +25,16 @@ class UserController extends Controller
         return view('frontend.mypage', compact('user','reservations', 'favorites', 'companies'));
     }
 
-    public function admin(){
+    public function owner(){
         $user = Auth::user();
         $company = Company::where('user_id', $user->id)->first();
         $performances = Performance::orderBy('created_at', 'desc')->where('company_id', $company->id)->get();
         return view('backend.index', compact('performances'));
+    }
+
+    public function admin(){
+        $user = Auth::user();
+        return view('backend.index');
     }
 
     public function create(){
@@ -43,4 +51,33 @@ class UserController extends Controller
         ];
         return view('backend.company.create', compact('user'));
     }
+
+    public function edit(){
+        $id = Auth::id();
+        $user = User::where('id', $id)->first();
+        return view('frontend.user.edit', compact('user'));
+    }
+
+    public function update(EditUserRequest $request){
+        $id = Auth::id();
+        $form = $request->all();
+        unset($form['_token']);
+        User::find($id)->update($form);
+        return redirect('/mypage');
+    }
+
+    public function editPassword(){
+        return view('frontend.user.password');
+    }
+
+    public function updatePassword(EditPasswordRequest $request)
+    {
+        $id = Auth::id();
+        $user = User::find($id);
+        $newPassword = $request->input('new_password');
+        $user->password = bcrypt($newPassword);
+        $user->save();
+        return redirect('/mypage');
+    }
+
 }

@@ -20,7 +20,7 @@ class UsersTableSeeder extends Seeder
                 'email' => 'admin@admin.com',
                 'email_verified_at' => now(),
                 'password' => Hash::make('password'),
-                'role' => 100,
+                'role' => 2,
         ];
         DB::table('users')->insert($param);
     }

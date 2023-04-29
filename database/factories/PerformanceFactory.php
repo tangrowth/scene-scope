@@ -9,7 +9,7 @@ class PerformanceFactory extends Factory
 {
     public function definition()
     {
-        $imagePath = 'img/cat.jpg';
+        $imagePath = '/storage/img/cat.jpg';
 
         return [
             'title' => $this->faker->word,
