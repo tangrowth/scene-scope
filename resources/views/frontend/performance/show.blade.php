@@ -6,7 +6,13 @@
 @section('main')
 <div class="performance">
   <div class="card-detail">
-    <div class="card-img"><img src="{{ asset('/storage/' . $performance->img_url) }}" alt="{{$performance->title}}"></div>
+    <div class="card-img">
+      @if($performance->img_url)
+      <img src="{{ asset($performance->img_url) }}" alt="{{$performance->title}}">
+      @else
+      <img src="{{ asset('storage/images/default.png') }}">
+      @endif
+    </div>
     <table class="detail-table">
       <tr>
         <th>タイトル</th>
@@ -56,7 +62,7 @@
       </table>
       <form action="{{ route('reserve.destroy',['id' => $reservation->id]) }}" method="post" onsubmit="return confirmCancel()">
         @csrf
-        <button class="delete-btn"><img src="{{ asset('storage/img/cross.png') }}"></button>
+        <button class="delete-btn"><img src="{{ asset('storage/images/cross.png') }}"></button>
       </form>
       <script>
         function confirmCancel() {

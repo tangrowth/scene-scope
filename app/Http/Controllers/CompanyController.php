@@ -30,7 +30,7 @@ class CompanyController extends Controller
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
-            'role' => 50,
+            'role' => 1,
         ]);
 
         $company = Company::create([
@@ -39,6 +39,15 @@ class CompanyController extends Controller
             'web_site_url' => $request->input('web_site_url'),
             'user_id' => $user->id,
         ]);
+        return redirect('/');
+    }
+
+    public function delete(Request $request)
+    {
+        $company = Company::find($request->id);
+        $company->performances()->delete();
+        $company->user()->delete();
+        $company->delete();
         return redirect('/');
     }
 }

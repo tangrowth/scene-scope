@@ -8,7 +8,7 @@ class CompanyFactory extends Factory
 {
     public function definition()
     {
-        $imagePath = 'storage/img/catface.jpg';
+        $imagePath = 'storage\images\default.png';
 
         return [
             'name' => $this->faker->word,

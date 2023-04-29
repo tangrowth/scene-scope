@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
-use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\EditUserRequest;
 use App\Http\Requests\EditPasswordRequest;
@@ -46,8 +45,7 @@ class UserController extends Controller
         $user = [
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'password' => $request->input('password'),
-            'role' => 100, 
+            'password' => $request->input('password')
         ];
         return view('backend.company.create', compact('user'));
     }

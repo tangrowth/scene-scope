@@ -30,7 +30,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth', 'can:admin_or_owner'])->group(function () {
-  
+  Route::post('/performance/delete', [PerformanceController::class, 'delete'])->name('performance.delete');
 });
 
 Route::middleware(['auth', 'can:owner'])->group(function () {

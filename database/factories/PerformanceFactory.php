@@ -3,13 +3,12 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Performance;
 
 class PerformanceFactory extends Factory
 {
     public function definition()
     {
-        $imagePath = '/storage/img/cat.jpg';
+        $imagePath = 'storage\images\default.png';
 
         return [
             'title' => $this->faker->word,
@@ -22,7 +21,7 @@ class PerformanceFactory extends Factory
             'web_site_url'
             => $this->faker->url,
             'company_id'
-            => $this->faker->numberBetween(1, 3),
+            => $this->faker->numberBetween(1, 10),
             'img_url'
             => $imagePath,
         ];

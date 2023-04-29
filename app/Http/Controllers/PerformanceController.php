@@ -80,8 +80,14 @@ class PerformanceController extends Controller
             foreach ($request->input('dates') as $date) {
                 $performance->dates()->create(['date' => $date]);
             }
-            return redirect()->route('admin');
+            return redirect()->route('owner');
         }
+    }
+
+    public function delete(Request $request)
+    {
+        Performance::find($request->id)->delete();
+        return back();
     }
 
 

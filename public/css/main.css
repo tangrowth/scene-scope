@@ -60,9 +60,10 @@ main {
   position: absolute;
   top: 0;
   left: 0;
-  background-color: #81D2E4;
+  background-color: #00999F;
   color: #fff;
   padding: 5px;
+  font-size: 20px;
   border-radius: 15px 0 0 0;
 }
 .performance {

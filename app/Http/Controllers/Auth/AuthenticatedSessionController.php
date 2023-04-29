@@ -32,8 +32,11 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-        if (Gate::allows('owner')) {
-            return redirect( route('admin'));
+        if (Gate::allows('admin')) {
+            return redirect(route('admin'));
+        }
+        elseif (Gate::allows('owner')) {
+            return redirect( route('owner'));
         }
         else{
             return redirect('/');
