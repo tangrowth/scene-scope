@@ -90,6 +90,17 @@ class PerformanceController extends Controller
         return back();
     }
 
+    public function edit(Request $request)
+    {
+        $performance = Performance::find($request->id);
+        return view('backend.performance.edit', compact('performance'));
+    }
 
-
+    public function update(PerformanceRequest $request)
+    {
+        $form = $request->all();
+        unset($form['_token']);
+        Performance::find($request->id)->update($form);
+        return redirect('/performance/' . $request->id);
+    }
 }

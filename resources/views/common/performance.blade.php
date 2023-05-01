@@ -12,18 +12,47 @@
       </div>
       <p class="pf-card-com">{{$performance->Company->name}}</p>
       <div class="pf-card-content">
-        <p>{{$performance->title}}</p>
-        <p>{{$performance->venue}}</p>
+        <div>
+          <p>{{$performance->title}}</p>
+          <p>{{$performance->venue}}</p>
+        </div>
+        <div>
+          @can('admin')
+          <div>
+            <form action="{{ route('performance.delete') }}" method="post" onsubmit="return confirm('本当に削除しますか？');">
+              @csrf
+              <input type="hidden" name="id" value="{{$performance->id}}">
+              <button>削除</button>
+            </form>
+          </div>
+          <div>
+            <form action="{{ route('performance.edit') }}">
+              @csrf
+              <input type="hidden" name="id" value="{{$performance->id}}">
+              <button>編集</button>
+            </form>
+          </div>
+          @endcan
+          @can('owner')
+          @if($performance->company_id == Auth::user()->company->id)
+          <div>
+            <form action="{{ route('performance.delete') }}" method="post" onsubmit="return confirm('本当に削除しますか？');">
+              @csrf
+              <input type="hidden" name="id" value="{{$performance->id}}">
+              <button>削除</button>
+            </form>
+          </div>
+          <div>
+            <form action="{{ route('performance.edit') }}">
+              @csrf
+              <input type="hidden" name="id" value="{{$performance->id}}">
+              <button>編集</button>
+            </form>
+          </div>
+          @endif
+          @endcan
+        </div>
       </div>
-      @can('admin_or_owner')
-      <div>
-        <form action="{{ route('performance.delete') }}" method="post" onsubmit="return confirm('本当に削除しますか？');">
-          @csrf
-          <input type="hidden" name="id" value="{{$performance->id}}">
-          <button>削除</button>
-        </form>
-      </div>
-      @endcan
     </a>
   </div>
   @endforeach

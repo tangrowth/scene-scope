@@ -40,11 +40,27 @@
             <button class="delete-btn"><img src="{{ asset('storage/images/cross.png') }}"></button>
           </form>
         </div>
+        <div>
+          <form action="{{ route('company.edit') }}">
+            @csrf
+            <input type="hidden" name="id" value="{{$company->id}}">
+            <button>編集</button>
+          </form>
+        </div>
+        @endcan
+        @can('owner')
+        @if($company->id == Auth::user()->company->id)
+        <div>
+          <form action="{{ route('company.edit') }}">
+            @csrf
+            <input type="hidden" name="id" value="{{$company->id}}">
+            <button>編集</button>
+          </form>
+        </div>
+        @endif
         @endcan
       </div>
     </a>
-    @auth
-    @endauth
   </div>
   @endforeach
   @endif

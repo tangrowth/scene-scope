@@ -6,6 +6,7 @@ use App\Models\Company;
 use App\Models\Favorite;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\CompanyRequest;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -49,5 +50,19 @@ class CompanyController extends Controller
         $company->user()->delete();
         $company->delete();
         return redirect('/');
+    }
+
+    public function edit(Request $request)
+    {
+        $company = Company::find($request->id);
+        return view('backend.company.edit', compact('company'));
+    }
+
+    public function update(CompanyRequest $request)
+    {
+        $form = $request->all();
+        unset($form['_token']);
+        Company::find($request->id)->update($form);
+        return redirect('/company/' . $request->id);
     }
 }

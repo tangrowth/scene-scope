@@ -122,6 +122,9 @@ main {
 
 .pf-card-content {
   padding: 10px;
+  display: flex;
+  justify-content: space-between;
+
 }
 
 .pf-card-content p {
