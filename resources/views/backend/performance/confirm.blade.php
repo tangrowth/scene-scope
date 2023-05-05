@@ -18,6 +18,14 @@
         <td><textarea name="description" cols="30" rows="10" readonly>{{ $inputs['description'] }}</textarea></td>
       </tr>
       <tr>
+        <th>郵便番号</th>
+        <td><input id="zip" type="text" name="zip" size="7" value="{{ $inputs['zip11'] }}" readonly></td>
+      </tr>
+      <tr>
+        <th>住所</th>
+        <td><input id="address" type="text" name="address" size="30" value="{{ $inputs['addr11'] }}"></td>
+      </tr>
+      <tr>
         <th>会場</th>
         <td><input type="text" name="venue" value="{{ $inputs['venue'] }}" readonly></td>
       </tr>

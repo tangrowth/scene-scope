@@ -11,11 +11,8 @@
     <table>
       <tr>
         <th>公演名</th>
-        <td><input type="text" name="title"></td>
-      </tr>
-      @if ($errors->has('title'))
-      <tr>
-        <th style="background-color: red">ERROR</th>
+        <td><input type="text" name="title" value="{{ @old('title') }}"></td>
+        @if ($errors->has('title'))
         <td>
           {{$errors->first('title')}}
         </td>
@@ -23,40 +20,44 @@
       @endif
       <tr>
         <th>あらすじ</th>
-        <td><textarea name="description" cols="30" rows="10"></textarea></td>
-      </tr>
-      @if ($errors->has('description'))
-      <tr>
-        <th style="background-color: red">ERROR</th>
+        <td><textarea name="description" cols="30" rows="10">{{ @old('description') }}</textarea></td>
+        @if ($errors->has('description'))
         <td>
           {{$errors->first('description')}}
         </td>
+        @endif
       </tr>
-      @endif
       <tr>
-        <th>会場</th>
-        <td><input type="text" name="venue"></td>
+        <th>郵便番号</th>
+        <td>
+          <input type="text" name="zip11" size="10" maxlength="8" onKeyUp="AjaxZip3.zip2addr(this,'','addr11','addr11');">
+        </td>
       </tr>
-      @if ($errors->has('venue'))
       <tr>
-        <th style="background-color: red">ERROR</th>
+        <th>住所</th>
+        <td>
+          <input type="text" name="addr11" size="60">
+        </td>
+      </tr>
+
+      <tr>
+        <th>建物名</th>
+        <td><input type="text" name="venue" value="{{ @old('venue') }}"></td>
+        @if ($errors->has('venue'))
         <td>
           {{$errors->first('venue')}}
         </td>
+        @endif
       </tr>
-      @endif
       <tr>
         <th>公式サイト</th>
-        <td><input type="text" name="web_site_url"></td>
-      </tr>
-      @if ($errors->has('web_site_url'))
-      <tr>
-        <th style="background-color: red">ERROR</th>
+        <td><input type="text" name="web_site_url" value="{{ @old('web_site_url') }}"></td>
+        @if ($errors->has('web_site_url'))
         <td>
           {{$errors->first('web_site_url')}}
         </td>
+        @endif
       </tr>
-      @endif
       <tbody id="dates_tbody">
         <tr>
           <th>公演日</th>

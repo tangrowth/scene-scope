@@ -15,7 +15,7 @@ Route::get('/performance/{id}', [PerformanceController::class, 'show'])->name('p
 Route::get('/company/{id}', [CompanyController::class, 'index'])->name('company');
 Route::get('/search', [PerformanceController::class, 'search'])->name('search');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['verified'])->group(function () {
   Route::post('/reservation/confirm', [ReservationController::class, 'create'])->name('reserve.confirm');
   Route::get('/reservation/thanks', [ReservationController::class, 'index'])->name('reserve.thanks');
   Route::post('/reservation/{id}', [ReservationController::class, 'destroy'])->name('reserve.destroy');
@@ -49,6 +49,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/user/create', [UserController::class, 'create'])->name('admin.create');
     Route::post('/admin/user/create', [UserController::class, 'store'])->name('admin.user');
     Route::post('/admin/company/create', [CompanyController::class, 'store'])->name('admin.company');
+    Route::post('/admin/company/delete', [CompanyController::class, 'delete'])->name('company.delete');
   });
 });
 

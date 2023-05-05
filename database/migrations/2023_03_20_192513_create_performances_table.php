@@ -18,8 +18,9 @@ class CreatePerformancesTable extends Migration
             $table->string('img_url')->nullable();
             $table->string('title');
             $table->string('description');
+            $table->string('zip')->nullable();
+            $table->string('address');
             $table->string('venue');
-            $table->integer('price')->nullable();
             $table->string('web_site_url');
             $table->integer('company_id');
             $table->timestamps();

@@ -67,6 +67,8 @@ class PerformanceController extends Controller
             'user_id' => $user_id,
             'title' => $request->input('title'),
             'description' => $request->input('description'),
+            'zip' => $request->input('zip'),
+            'address' => $request->input('address'),
             'venue' => $request->input('venue'),
             'web_site_url' => $request->input('web_site_url'),
             'company_id' => $company_id

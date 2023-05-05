@@ -17,31 +17,13 @@
 -   管理画面の実装
 -   劇団の管理画面
 
-### 今後の実装予定
-
--   決済機能
--   公演の追加・削除機能
--   メール認証
-
 ## 使用技術
 
 -   laravel
--   jabascript
+-   java script
+-   laravel breeze
+-   google map api
+-   geo cooding api
+
 
 ## 環境構築方法
-
-以下の手順で実行をして下さい。
-
--   プロジェクト直下で「composer update」を実行
--   「.env.example」ファイルをコピーし、「.env」ファイルを作成
--   「.env」ファイルの以下の項目を、データベースに合わせて書き換える
-    DB_DATABASE=
-    DB_USERNAME=
-    DB_PASSWORD=
--   以下のコマンドを順に実行する
-    php artisan key:generate
-    php artisan migrate:fresh
-    php artisan db:seed
-    php artisan serve
--
--
