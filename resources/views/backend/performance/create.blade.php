@@ -1,6 +1,7 @@
 @extends('layouts.header')
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+<script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
 @endsection
 
 @section('main')

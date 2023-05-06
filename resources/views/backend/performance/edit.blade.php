@@ -13,51 +13,39 @@
       <tr>
         <th>公演名</th>
         <td><input type="text" name="title" value="{{$performance->title}}"></td>
-      </tr>
       @if ($errors->has('title'))
-      <tr>
-        <th style="background-color: red">ERROR</th>
         <td>
           {{$errors->first('title')}}
         </td>
+        @endif
       </tr>
-      @endif
       <tr>
         <th>あらすじ</th>
         <td><textarea name="description" cols="30" rows="10">{{$performance->description}}</textarea></td>
-      </tr>
       @if ($errors->has('description'))
-      <tr>
-        <th style="background-color: red">ERROR</th>
         <td>
           {{$errors->first('description')}}
         </td>
+        @endif
       </tr>
-      @endif
       <tr>
         <th>会場</th>
         <td><input type="text" name="venue" value="{{$performance->venue}}"></td>
-      </tr>
       @if ($errors->has('venue'))
-      <tr>
-        <th style="background-color: red">ERROR</th>
         <td>
           {{$errors->first('venue')}}
         </td>
+        @endif
       </tr>
-      @endif
       <tr>
         <th>公式サイト</th>
         <td><input type="text" name="web_site_url" value="{{$performance->web_site_url}}"></td>
-      </tr>
       @if ($errors->has('web_site_url'))
-      <tr>
-        <th style="background-color: red">ERROR</th>
         <td>
           {{$errors->first('web_site_url')}}
         </td>
+        @endif
       </tr>
-      @endif
     </table>
 
     <input type="submit" value="更新する">

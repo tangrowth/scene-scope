@@ -1,6 +1,7 @@
 @extends('layouts.header')
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBa0Dhuh6lv0cF52ndkqDw0PNsdBpXvIvM&callback=initMap"></script>
 @endsection
 
 @section('main')
@@ -28,6 +29,10 @@
       </tr>
       <tr>
         <th>会場</th>
+        <td>{{ $performance->address }}</td>
+      </tr>
+      <tr>
+        <th></th>
         <td>{{$performance->venue}}</td>
       </tr>
       @if (@isset($performance->dates))
@@ -45,6 +50,36 @@
     </table>
   </div>
   <div class="pf-reservation">
+    <div class="pf-reservation-map">
+      <div id="map" class="map"></div>
+      <script type="text/javascript">
+        function initMap() {
+          const geocoder = new google.maps.Geocoder();
+          geocoder.geocode({
+            address: '{{ $performance->address }}'
+          }, function(results, status) {
+            if (status === google.maps.GeocoderStatus.OK) {
+              const latlng = {
+                lat: results[0].geometry.location.lat(),
+                lng: results[0].geometry.location.lng()
+              };
+              const opts = {
+                zoom: 15,
+                center: latlng
+              };
+              const map = new google.maps.Map(document.getElementById('map'), opts);
+              new google.maps.Marker({
+                position: latlng,
+                map: map
+              });
+            } else {
+              console.error('Geocode was not successful for the following reason: ' + status);
+            }
+          });
+        }
+        google.maps.event.addDomListener(window, 'load', initMap);
+      </script>
+    </div>
     <div class="pf-reservation-detail">
       @auth
       @if($reservations)
@@ -60,15 +95,10 @@
           <td>{{ $reservation->number }}人</td>
         </tr>
       </table>
-      <form action="{{ route('reserve.destroy',['id' => $reservation->id]) }}" method="post" onsubmit="return confirmCancel()">
+      <form action="{{ route('reserve.destroy',['id' => $reservation->id]) }}" method="post" onsubmit="return confirm('予約をキャンセルしますか？')">
         @csrf
         <button class="delete-btn"><img src="{{ asset('storage/images/cross.png') }}"></button>
       </form>
-      <script>
-        function confirmCancel() {
-          return window.confirm('予約をキャンセルしますか？');
-        }
-      </script>
       @endforeach
       @endif
       <p class="pf-reservation-title">公演予約</p>
@@ -102,8 +132,8 @@
       <p class="pf-reservation-title">予約にはログインが必要です</p>
       <a href="../login">ログインはこちら</a>
       <a href="../register">新規登録はこちら</a>
+      @endguest
     </div>
-    @endguest
   </div>
 </div>
 @endsection
