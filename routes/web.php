@@ -17,7 +17,7 @@ Route::get('/search', [PerformanceController::class, 'search'])->name('search');
 
 Route::middleware(['verified'])->group(function () {
   Route::post('/reservation/confirm', [ReservationController::class, 'create'])->name('reserve.confirm');
-  Route::get('/reservation/thanks', [ReservationController::class, 'index'])->name('reserve.thanks');
+  Route::get('/reservation/thanks', [ReservationController::class, 'thanks'])->name('reserve.thanks');
   Route::post('/reservation/{id}', [ReservationController::class, 'destroy'])->name('reserve.destroy');
   Route::post('/reservation', [ReservationController::class, 'store'])->name('reserve.store');
   Route::get('/mypage', [UserController::class, 'index'])->name('mypage');
@@ -38,6 +38,8 @@ Route::middleware(['verified'])->group(function () {
       Route::get('performance/date', [DateController::class, 'edit'])->name('date.edit');
       Route::post('performance/date', [DateController::class, 'delete'])->name('date.delete');
       Route::post('performance/date/add', [DateController::class, 'add'])->name('date.add');
+      Route::get('reserve', [ReservationController::class, 'index'])->name('reserve.menu');
+      Route::get('reserve/show', [ReservationController::class, 'show'])->name('reserve.show');
     });
     
     Route::middleware(['can:owner'])->group(function () {

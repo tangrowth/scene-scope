@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,7 +11,7 @@ use App\Models\Performance;
 
 class ReservationController extends Controller
 {
-    public function index()
+    public function thanks()
     {
         return view('frontend.reservation.thanks');
     }
@@ -51,4 +52,33 @@ class ReservationController extends Controller
         $reservation->delete();
         return back();
     }
+
+    public function index()
+    {
+        $user = Auth::user();
+        if ($user->admin){
+            $performances = Performance::withCount('reservations') -> get();
+        } else {
+            $company_id = Company::where('user_id', $user->id) -> first() -> id;
+            $performances = Performance::where('company_id', $company_id)-> withCount('reservations')-> get();
+        }
+        return view ('backend.reservation.index', compact('performances'));
+    }
+
+    public function show(Request $request)
+    {
+        $performance = Performance::find($request->performance_id);
+        $dates = $performance->dates;
+        $reservationsByDate = [];
+        foreach ($dates as $date) {
+            $reservations = Reservation::where('performance_id', $request->performance_id)
+                ->where('date_id', $date->id)
+                ->get();
+
+            $reservationsByDate[$date->id] = $reservations;
+        }
+        return view('backend.reservation.show', compact('performance', 'reservationsByDate', 'dates'));
+    }
+
+
 }
