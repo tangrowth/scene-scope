@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\PerformanceRequest;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class PerformanceController extends Controller
 {
@@ -80,11 +81,14 @@ class PerformanceController extends Controller
         } else {
             $performance = Performance::create($form);
             foreach ($request->input('dates') as $date) {
-                $performance->dates()->create(['date' => $date]);
+                $datetime = Carbon::parse($date);
+                $formatted_date = $datetime->format('Y/m/d H:i');
+                $performance->dates()->create(['date' => $formatted_date]);
             }
             return redirect()->route('owner');
         }
     }
+
 
     public function delete(Request $request)
     {

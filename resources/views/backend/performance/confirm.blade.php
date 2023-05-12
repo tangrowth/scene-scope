@@ -33,10 +33,15 @@
         <th>公式サイト</th>
         <td><input type="text" name="web_site_url" value="{{ $inputs['web_site_url'] }}" readonly></td>
       </tr>
-      @foreach( $inputs['dates'] as $date)
       <tr>
         <th>公演日</th>
-        <td><input type="date" name="dates[]" class="form-control" value="{{ $date }}" readonly></td>
+        <td><input type="text" name="dates[]" value="{{ \Carbon\Carbon::parse($inputs['dates'][0])->format('Y/m/d H:i') }}" readonly></td>
+      </tr>
+      @foreach( array_slice($inputs['dates'], 1) as $date)
+      <tr>
+        <th></th>
+        <td> <input type="text" name="dates[]" value="{{ \Carbon\Carbon::parse($date)->format('Y/m/d H:i') }}" readonly></td>
+        </td>
       </tr>
       @endforeach
     </table>

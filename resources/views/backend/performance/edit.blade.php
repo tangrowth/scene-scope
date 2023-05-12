@@ -13,7 +13,7 @@
       <tr>
         <th>公演名</th>
         <td><input type="text" name="title" value="{{$performance->title}}"></td>
-      @if ($errors->has('title'))
+        @if ($errors->has('title'))
         <td>
           {{$errors->first('title')}}
         </td>
@@ -22,16 +22,22 @@
       <tr>
         <th>あらすじ</th>
         <td><textarea name="description" cols="30" rows="10">{{$performance->description}}</textarea></td>
-      @if ($errors->has('description'))
+        @if ($errors->has('description'))
         <td>
           {{$errors->first('description')}}
         </td>
         @endif
       </tr>
       <tr>
-        <th>会場</th>
+        <th>住所</th>
+        <td>
+          <input type="text" name="address" size="60" value="{{$performance->address}}">
+        </td>
+      </tr>
+      <tr>
+        <th>建物名</th>
         <td><input type="text" name="venue" value="{{$performance->venue}}"></td>
-      @if ($errors->has('venue'))
+        @if ($errors->has('venue'))
         <td>
           {{$errors->first('venue')}}
         </td>
@@ -40,14 +46,13 @@
       <tr>
         <th>公式サイト</th>
         <td><input type="text" name="web_site_url" value="{{$performance->web_site_url}}"></td>
-      @if ($errors->has('web_site_url'))
+        @if ($errors->has('web_site_url'))
         <td>
           {{$errors->first('web_site_url')}}
         </td>
         @endif
       </tr>
     </table>
-
     <input type="submit" value="更新する">
   </form>
 </div>

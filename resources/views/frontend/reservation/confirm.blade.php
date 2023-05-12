@@ -21,7 +21,7 @@
       </tr>
       <tr>
         <th>日付</th>
-        <td>{{$data['date']->date}}</td>
+        <td>{{$data['date']->date->format('Y/m/d H:i')}}</td>
         <input type="hidden" value="{{$inputs['date_id']}}" name="date_id">
       </tr>
     </table>

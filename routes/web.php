@@ -28,28 +28,33 @@ Route::middleware(['verified'])->group(function () {
   Route::post('/favorite', [FavoriteController::class, 'add'])->name('favorite.on');
   Route::post('/favorite/{id}', [FavoriteController::class, 'delete'])->name('favorite.off');
 
-  Route::middleware(['can:admin_or_owner'])->group(function () {
-    Route::post('admin/performance/delete', [PerformanceController::class, 'delete'])->name('performance.delete');
-    Route::get('admin/performance/edit', [PerformanceController::class, 'edit'])->name('performance.edit');
-    Route::post('admin/performance/edit', [PerformanceController::class, 'update'])->name('performance.update');
-    Route::get('admin/company/edit', [CompanyController::class, 'edit'])->name('company.edit');
-    Route::post('admin/company/edit', [CompanyController::class, 'update'])->name('company.update');
+  Route::prefix('admin')->group(function(){
+    Route::middleware(['can:admin_or_owner'])->group(function () {
+      Route::post('/performance/delete', [PerformanceController::class, 'delete'])->name('performance.delete');
+      Route::get('/performance/edit', [PerformanceController::class, 'edit'])->name('performance.edit');
+      Route::post('/performance/edit', [PerformanceController::class, 'update'])->name('performance.update');
+      Route::get('/company/edit', [CompanyController::class, 'edit'])->name('company.edit');
+      Route::post('/company/edit', [CompanyController::class, 'update'])->name('company.update');
+      Route::get('performance/date', [DateController::class, 'edit'])->name('date.edit');
+      Route::post('performance/date', [DateController::class, 'delete'])->name('date.delete');
+      Route::post('performance/date/add', [DateController::class, 'add'])->name('date.add');
+    });
+    
+    Route::middleware(['can:owner'])->group(function () {
+      Route::get('/owner', [UserController::class, 'owner'])->name('owner');
+      Route::get('/performance/create', [PerformanceController::class, 'create'])->name('performance.create');
+      Route::post('/performance/confirm', [PerformanceController::class, 'confirm'])->name('performance.confirm');
+      Route::post('/date/create', [DateController::class, 'create'])->name('date.create');
+      Route::post('/performance/create', [PerformanceController::class, 'store'])->name('performance.store');
   });
-
-  Route::middleware(['can:owner'])->group(function () {
-    Route::get('/owner', [UserController::class, 'owner'])->name('owner');
-    Route::get('/admin/performance/create', [PerformanceController::class, 'create'])->name('performance.create');
-    Route::post('/admin/performance/confirm', [PerformanceController::class, 'confirm'])->name('performance.confirm');
-    Route::post('/admin/date/create', [DateController::class, 'create'])->name('date.create');
-    Route::post('/admin/performance/create', [PerformanceController::class, 'store'])->name('performance.store');
-  });
-
-  Route::middleware(['can:admin'])->group(function () {
-    Route::get('admin', [UserController::class, 'admin'])->name('admin');
-    Route::get('/admin/user/create', [UserController::class, 'create'])->name('admin.create');
-    Route::post('/admin/user/create', [UserController::class, 'store'])->name('admin.user');
-    Route::post('/admin/company/create', [CompanyController::class, 'store'])->name('admin.company');
-    Route::post('/admin/company/delete', [CompanyController::class, 'delete'])->name('company.delete');
+    
+    Route::middleware(['can:admin'])->group(function () {
+      Route::get('/', [UserController::class, 'admin'])->name('admin');
+      Route::get('/user/create', [UserController::class, 'create'])->name('admin.create');
+      Route::post('/user/create', [UserController::class, 'store'])->name('admin.user');
+      Route::post('/company/create', [CompanyController::class, 'store'])->name('admin.company');
+      Route::post('/company/delete', [CompanyController::class, 'delete'])->name('company.delete');
+    });
   });
 });
 

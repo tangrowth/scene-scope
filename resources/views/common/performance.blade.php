@@ -25,13 +25,6 @@
               <button>削除</button>
             </form>
           </div>
-          <div>
-            <form action="{{ route('performance.edit') }}">
-              @csrf
-              <input type="hidden" name="id" value="{{$performance->id}}">
-              <button>編集</button>
-            </form>
-          </div>
           @endcan
           @can('owner')
           @if($performance->company_id == Auth::user()->company->id)
@@ -40,13 +33,6 @@
               @csrf
               <input type="hidden" name="id" value="{{$performance->id}}">
               <button>削除</button>
-            </form>
-          </div>
-          <div>
-            <form action="{{ route('performance.edit') }}">
-              @csrf
-              <input type="hidden" name="id" value="{{$performance->id}}">
-              <button>編集</button>
             </form>
           </div>
           @endif

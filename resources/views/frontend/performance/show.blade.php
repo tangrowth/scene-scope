@@ -14,11 +14,10 @@
       <img src="{{ asset('storage/images/default.png') }}">
       @endif
     </div>
+    <div class="container-title">
+      <p>{{$performance->title}}</p>
+    </div>
     <table class="detail-table">
-      <tr>
-        <th>タイトル</th>
-        <td>{{$performance->title}}</td>
-      </tr>
       <tr>
         <th>劇団</th>
         <td>{{$performance->Company->name}}</td>
@@ -35,19 +34,65 @@
         <th></th>
         <td>{{$performance->venue}}</td>
       </tr>
-      @if (@isset($performance->dates))
       <tr>
         <th>公演日</th>
-        <td>{{$performance->dates->first()->date}}</td>
+        <td>{{$performance->dates->first()->date->format('Y/m/d H:i')}}</td>
       </tr>
       @foreach($performance->dates->slice(1) as $date)
       <tr>
         <th></th>
-        <td>{{$date->date}}</td>
+        <td>{{$date->date->format('Y/m/d H:i')}}</td>
       </tr>
       @endforeach
-      @endif
     </table>
+    @can('admin')
+    <div>
+      <form action="{{ route('performance.delete') }}" method="post" onsubmit="return confirm('本当に削除しますか？');">
+        @csrf
+        <input type="hidden" name="id" value="{{$performance->id}}">
+        <button>削除</button>
+      </form>
+    </div>
+    <div>
+      <form action="{{ route('performance.edit') }}">
+        @csrf
+        <input type="hidden" name="id" value="{{$performance->id}}">
+        <button>編集</button>
+      </form>
+    </div>
+    <div>
+      <form action="{{ route('date.edit') }}">
+        @csrf
+        <input type="hidden" name="id" value="{{$performance->id}}">
+        <button>公演日の変更</button>
+      </form>
+    </div>
+    @endcan
+    @can('owner')
+    @if($performance->company_id == Auth::user()->company->id)
+    <div>
+      <form action="{{ route('performance.delete') }}" method="post" onsubmit="return confirm('本当に削除しますか？');">
+        @csrf
+        <input type="hidden" name="id" value="{{$performance->id}}">
+        <button>削除</button>
+      </form>
+    </div>
+    <div>
+      <form action="{{ route('performance.edit') }}">
+        @csrf
+        <input type="hidden" name="id" value="{{$performance->id}}">
+        <button>編集</button>
+      </form>
+    </div>
+    <div>
+      <form action="{{ route('date.edit') }}">
+        @csrf
+        <input type="hidden" name="id" value="{{$performance->id}}">
+        <button>公演日の変更</button>
+      </form>
+    </div>
+    @endif
+    @endcan
   </div>
   <div class="pf-reservation">
     <div class="pf-reservation-map">
@@ -88,7 +133,7 @@
       <table>
         <tr>
           <th>公演日</th>
-          <td>{{ $reservation->Date->date }}</td>
+          <td>{{ $reservation->Date->date->format('Y/m/d H:i') }}</td>
         </tr>
         <tr>
           <th>予約人数</th>
@@ -118,7 +163,7 @@
             <td>
               <select name="date_id">
                 @foreach($performance->dates as $date)
-                <option value="{{$date->id}}">{{$date->date}}</option>
+                <option value="{{$date->id}}">{{$date->date->format('Y/m/d H:i')}}</option>
                 @endforeach
               </select>
             </td>

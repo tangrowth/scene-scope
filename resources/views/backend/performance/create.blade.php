@@ -62,7 +62,8 @@
       <tbody id="dates_tbody">
         <tr>
           <th>公演日</th>
-          <td><input type="date" name="dates[]" class="form-control" id="date1"></td>
+          <td><input type="datetime-local" name="dates[]" class="form-control" id="date1"></td>
+          <td><button type="button" class="btn btn-danger delete-date">削除する</button></td>
         </tr>
       </tbody>
     </table>
@@ -78,11 +79,18 @@
 
       var new_tr = document.createElement("tr");
       new_tr.innerHTML = `
-        <th></th>
-        <td><input type="date" name="dates[]" class="form-control" id="date${date_count}"></td>
-      `;
-
+      <th></th>
+      <td><input type="datetime-local" name="dates[]" class="form-control" id="date${date_count}"></td>
+      <td><button type="button" class="btn btn-danger delete-date">削除する</button></td>
+    `;
+      new_tr.getElementsByTagName("th")[0].innerHTML = "";
       dates_tbody.appendChild(new_tr);
+    });
+
+    document.addEventListener('click', function(event) {
+      if (event.target.classList.contains('delete-date')) {
+        event.target.closest('tr').remove();
+      }
     });
   </script>
 </div>
