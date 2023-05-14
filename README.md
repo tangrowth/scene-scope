@@ -26,6 +26,7 @@
 - 予約の一覧表示
 - 予約の削除
 - 劇団情報の更新
+- 予約の一覧表示
 
 ### 管理者ユーザー
 
@@ -39,5 +40,7 @@
 - laravel breeze
 - google map api
 - geo cooding api
+- AWS S3
+- Intervention Image
 
 ## 環境構築方法

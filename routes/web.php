@@ -35,11 +35,11 @@ Route::middleware(['verified'])->group(function () {
       Route::post('/performance/edit', [PerformanceController::class, 'update'])->name('performance.update');
       Route::get('/company/edit', [CompanyController::class, 'edit'])->name('company.edit');
       Route::post('/company/edit', [CompanyController::class, 'update'])->name('company.update');
-      Route::get('performance/date', [DateController::class, 'edit'])->name('date.edit');
-      Route::post('performance/date', [DateController::class, 'delete'])->name('date.delete');
-      Route::post('performance/date/add', [DateController::class, 'add'])->name('date.add');
-      Route::get('reserve', [ReservationController::class, 'index'])->name('reserve.menu');
-      Route::get('reserve/show', [ReservationController::class, 'show'])->name('reserve.show');
+      Route::get('/performance/date', [DateController::class, 'edit'])->name('date.edit');
+      Route::post('/performance/date', [DateController::class, 'delete'])->name('date.delete');
+      Route::post('/performance/date/add', [DateController::class, 'add'])->name('date.add');
+      Route::get('/reserve', [ReservationController::class, 'index'])->name('reserve.menu');
+      Route::get('/reserve/show', [ReservationController::class, 'show'])->name('reserve.show');
     });
     
     Route::middleware(['can:owner'])->group(function () {

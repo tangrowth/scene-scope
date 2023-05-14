@@ -7,7 +7,7 @@
 @section('main')
 <div class="container">
   <h2 class="container-title">新規公演作成</h2>
-  <form action="{{ route('performance.confirm') }}" method="post">
+  <form action="{{ route('performance.confirm') }}" method="post" enctype="multipart/form-data">
     @csrf
     <table>
       <tr>
@@ -17,8 +17,8 @@
         <td>
           {{$errors->first('title')}}
         </td>
+        @endif
       </tr>
-      @endif
       <tr>
         <th>あらすじ</th>
         <td><textarea name="description" cols="30" rows="10">{{ @old('description') }}</textarea></td>
@@ -40,7 +40,6 @@
           <input type="text" name="addr11" size="60">
         </td>
       </tr>
-
       <tr>
         <th>建物名</th>
         <td><input type="text" name="venue" value="{{ @old('venue') }}"></td>
@@ -66,6 +65,10 @@
           <td><button type="button" class="btn btn-danger delete-date">削除する</button></td>
         </tr>
       </tbody>
+      <tr>
+        <th>画像</th>
+        <td><input type="file" name="img_url"></td>
+      </tr>
     </table>
     <button type="button" id="add_date" class="btn btn-primary">日付を追加する</button>
     <input type="submit" value="作成する">

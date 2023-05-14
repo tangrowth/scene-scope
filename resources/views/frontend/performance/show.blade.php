@@ -9,7 +9,7 @@
   <div class="card-detail">
     <div class="card-img">
       @if($performance->img_url)
-      <img src="{{ asset($performance->img_url) }}" alt="{{$performance->title}}">
+      <img src="{{ $performance->img_url }}" alt="{{$performance->title}}">
       @else
       <img src="{{ asset('storage/images/default.png') }}">
       @endif

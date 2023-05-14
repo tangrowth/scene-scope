@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\PerformanceRequest;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use InterventionImage;
+use Illuminate\Support\Facades\Storage;
 
 class PerformanceController extends Controller
 {
@@ -31,32 +33,48 @@ class PerformanceController extends Controller
 
     public function show($id)
     {
-        if (Auth::check()){
-        $performance = Performance::find($id);
-        $user_id = Auth::user()->id;
-        $reservations = Reservation::where('user_id', $user_id)
-        ->where('performance_id', $id)
-        ->get();
-        return view('frontend.performance.show',compact('performance', 'reservations'));
+        if (Auth::check()) {
+            $performance = Performance::find($id);
+            $user_id = Auth::user()->id;
+            $reservations = Reservation::where('user_id', $user_id)
+                ->where('performance_id', $id)
+                ->get();
+            return view('frontend.performance.show', compact('performance', 'reservations'));
         } else {
             $performance = Performance::find($id);
             return view('frontend.performance.show', compact('performance'));
         }
     }
 
-    public function search(Request $request){
+    public function search(Request $request)
+    {
         $performances = Performance::where('title', 'LIKE', "%{$request->input}%")->get();
-        $companies = Company::where('name' , 'LIKE', "%{$request->input}%")->get();
+        $companies = Company::where('name', 'LIKE', "%{$request->input}%")->get();
         $favorites = Auth::user() ? Favorite::where('user_id', Auth::user()->id)->get() : null;
         return view('index', compact('performances', 'companies', 'favorites'));
     }
 
-    public function create(){
+    public function create()
+    {
         return view('backend.performance.create');
     }
 
-    public function confirm(PerformanceRequest $request){
+
+    public function confirm(PerformanceRequest $request)
+    {
         $inputs = $request->all();
+        if ($request->hasFile('img_url')) {
+            $image = InterventionImage::make($request->file('img_url'));
+            $image->orientate();
+            $image->fit(900, 600, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
+            $filePath = public_path('storage/temporary');
+            $filename = time() . '.png';
+            $image->save($filePath . '/' . $filename);
+            $inputs['img_url'] = 'storage/temporary/' . $filename;
+        }
         return view('backend.performance.confirm', compact('inputs'));
     }
 
@@ -76,9 +94,25 @@ class PerformanceController extends Controller
         ];
         $action = $request->input('action');
         if ($action !== '公演を作成する') {
-            return redirect()
-                ->route('performance.create');
+            if ($request->has('img_url')) {
+                $temporaryImagePath = public_path($request->input('img_url'));
+                if (file_exists($temporaryImagePath)) {
+                    unlink($temporaryImagePath);
+                }
+            }
+            return redirect()->route('performance.create');
         } else {
+            if ($request->has('img_url')) {
+                $imagePath = public_path($request->input('img_url'));
+                $uploadedImagePath = 'performance/' . time() . '.png';
+                Storage::disk('s3')->put($uploadedImagePath, file_get_contents($imagePath));
+                if (file_exists($imagePath)) {
+                    unlink($imagePath);
+                }
+                $s3BucketUrl = Storage::disk('s3')->url('/');
+                $s3BucketUrl = rtrim(Storage::disk('s3')->url('/'), '/');
+                $form['img_url'] = $s3BucketUrl . '/' . $uploadedImagePath;
+            }
             $performance = Performance::create($form);
             foreach ($request->input('dates') as $date) {
                 $datetime = Carbon::parse($date);

@@ -14,6 +14,17 @@
         <td><input type="text" name="title" value="{{ $inputs['title'] }}" readonly></td>
       </tr>
       <tr>
+        <th>画像</th>
+        <td>
+          @if (isset($inputs['img_url']))
+          <img src="{{ asset($inputs['img_url']) }}" style="width: 300px">
+          @else
+          <p>画像はありません</p>
+          @endif
+        </td>
+        <input type="hidden" name="img_url" value="{{ $inputs['img_url'] }}">
+      </tr>
+      <tr>
         <th>あらすじ</th>
         <td><textarea name="description" cols="30" rows="10" readonly>{{ $inputs['description'] }}</textarea></td>
       </tr>
