@@ -6,7 +6,7 @@
 @section('main')
 <div class="container">
   <h2 class="container-title">劇団の情報</h2>
-  <form action="{{ route('admin.company') }}" method="post">
+  <form action="{{ route('admin.confirm') }}" method="post" enctype="multipart/form-data">
     @csrf
     <table>
       <tr>
@@ -20,6 +20,10 @@
       <tr>
         <th>公式サイト</th>
         <td><input type="text" name="web_site_url"></td>
+      </tr>
+      <tr>
+        <th>劇団トップ画像</th>
+        <td><input type="file" name="img_url"></td>
       </tr>
     </table>
     <input type="hidden" name="email" value="{{ $user['email'] }}">
