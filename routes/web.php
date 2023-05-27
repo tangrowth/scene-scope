@@ -52,10 +52,10 @@ Route::middleware(['verified'])->group(function () {
     
     Route::middleware(['can:admin'])->group(function () {
       Route::get('/', [UserController::class, 'admin'])->name('admin');
-      Route::get('/user/create', [UserController::class, 'create'])->name('admin.create');
-      Route::post('/user/create', [UserController::class, 'store'])->name('admin.user');
-      Route::post('/user/comfirm', [CompanyController::class, 'confirm'])->name('admin.confirm');
-      Route::post('/company/create', [CompanyController::class, 'store'])->name('admin.company');
+      Route::get('/create/user', [UserController::class, 'create'])->name('admin.create');
+      Route::get('/create/company', [UserController::class, 'store'])->name('admin.user');
+      Route::post('/create/confirm', [CompanyController::class, 'confirm'])->name('admin.confirm');
+      Route::post('/create/complete', [CompanyController::class, 'store'])->name('admin.company');
       Route::post('/company/delete', [CompanyController::class, 'delete'])->name('company.delete');
     });
   });

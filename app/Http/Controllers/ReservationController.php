@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Date;
 use App\Models\Performance;
+use App\Http\Requests\ReservationRequest;
 
 class ReservationController extends Controller
 {
@@ -27,7 +28,7 @@ class ReservationController extends Controller
         return view('frontend.reservation.confirm', compact('data', 'inputs'));
     }
 
-    public function store(Request $request)
+    public function store(ReservationRequest $request)
     {
         $user_id = Auth::id();
         $form = [

@@ -11,8 +11,6 @@ class PerformanceFactory extends Factory
     {
         $address = Str::replaceFirst($this->faker->postcode, '', $this->faker->address);
 
-        $imagePath = 'storage\images\default.png';
-
         return [
             'title' => $this->faker->word,
             'description' => $this->faker->realText,
@@ -21,7 +19,6 @@ class PerformanceFactory extends Factory
             'venue' => $this->faker->city,
             'web_site_url' => $this->faker->url,
             'company_id' => $this->faker->numberBetween(1, 10),
-            'img_url' => $imagePath,
         ];
     }
 }

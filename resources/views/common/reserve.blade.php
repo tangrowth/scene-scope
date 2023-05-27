@@ -1,6 +1,12 @@
 <div class="reserve-card">
   <a href="{{ route('performance', ['id' => $reservation->performance->id]) }}">
-    <div class="card-img"><img src="{{ asset($reservation->performance->img_url) }}" alt="画像なし"></div>
+    <div class="card-img">
+      @if($reservation->performance->img_url)
+      <img src="{{ asset($reservation->performance->img_url) }}" alt="{{$reservation->performance->title}}">
+      @else
+      <img src="{{ asset('storage/images/default.png') }}">
+      @endif
+    </div>
     <div class="reserve-card-content">
       <p class="pf-card-com">{{$reservation->performance->company->name}}</p>
       <table class="pf-detail-info">

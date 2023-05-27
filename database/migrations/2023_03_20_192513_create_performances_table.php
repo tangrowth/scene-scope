@@ -21,7 +21,7 @@ class CreatePerformancesTable extends Migration
             $table->string('zip')->nullable();
             $table->string('address');
             $table->string('venue');
-            $table->string('web_site_url');
+            $table->string('web_site_url')->nulla;
             $table->integer('company_id');
             $table->timestamps();
         });

@@ -7,56 +7,41 @@
 @section('main')
 <div class="container">
   <h2 class="container-title">新規公演作成</h2>
+  <ul>
+    @foreach ($errors->all() as $error)
+    <li>{{ $error }}</li>
+    @endforeach
+  </ul>
   <form action="{{ route('performance.confirm') }}" method="post" enctype="multipart/form-data">
     @csrf
     <table>
       <tr>
         <th>公演名</th>
         <td><input type="text" name="title" value="{{ @old('title') }}"></td>
-        @if ($errors->has('title'))
-        <td>
-          {{$errors->first('title')}}
-        </td>
-        @endif
       </tr>
       <tr>
         <th>あらすじ</th>
         <td><textarea name="description" cols="30" rows="10">{{ @old('description') }}</textarea></td>
-        @if ($errors->has('description'))
-        <td>
-          {{$errors->first('description')}}
-        </td>
-        @endif
       </tr>
       <tr>
         <th>郵便番号</th>
         <td>
-          <input type="text" name="zip11" size="10" maxlength="8" onKeyUp="AjaxZip3.zip2addr(this,'','addr11','addr11');">
+          <input type="text" name="zip11" size="10" maxlength="8" onKeyUp="AjaxZip3.zip2addr(this,'','addr11','addr11');" value="{{ @old('zip11') }}">
         </td>
       </tr>
       <tr>
         <th>住所</th>
         <td>
-          <input type="text" name="addr11" size="60">
+          <input type="text" name="addr11" size="60" value="{{ @old('addr11') }}">
         </td>
       </tr>
       <tr>
         <th>建物名</th>
         <td><input type="text" name="venue" value="{{ @old('venue') }}"></td>
-        @if ($errors->has('venue'))
-        <td>
-          {{$errors->first('venue')}}
-        </td>
-        @endif
       </tr>
       <tr>
         <th>公式サイト</th>
         <td><input type="text" name="web_site_url" value="{{ @old('web_site_url') }}"></td>
-        @if ($errors->has('web_site_url'))
-        <td>
-          {{$errors->first('web_site_url')}}
-        </td>
-        @endif
       </tr>
       <tbody id="dates_tbody">
         <tr>

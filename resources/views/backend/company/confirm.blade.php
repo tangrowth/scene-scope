@@ -14,11 +14,11 @@
         <td>
           @if (isset($inputs['img_url']))
           <img src="{{ asset($inputs['img_url']) }}" style="width: 300px">
+          <input type="hidden" name="img_url" value="{{ $inputs['img_url'] }}">
           @else
           <p>画像はありません</p>
           @endif
         </td>
-        <input type="hidden" name="img_url" value="{{ $inputs['img_url'] }}">
       </tr>
       <tr>
         <th>劇団名</th>
@@ -41,7 +41,7 @@
         <td><input type="text" name="password" value="{{ $inputs['password'] }}" readonly></td>
       </tr>
     </table>
-    <input type="submit" value="内容を修正する" name="action">
+    <input type="submit" value="キャンセル" name="action">
     <input type="submit" value="劇団を作成する" name="action">
   </form>
 </div>

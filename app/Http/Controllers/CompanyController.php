@@ -10,6 +10,7 @@ use App\Http\Requests\CompanyRequest;
 use Illuminate\Support\Facades\Auth;
 use InterventionImage;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 
 class CompanyController extends Controller
@@ -27,7 +28,7 @@ class CompanyController extends Controller
         return view('frontend.company.index', compact('companies', 'favorites'));
     }
 
-    public function confirm(Request $request)
+    public function confirm(CompanyRequest $request)
     {
         $inputs = $request->all();
         if ($request->hasFile('img_url')) {
@@ -66,12 +67,15 @@ class CompanyController extends Controller
                 $s3BucketUrl = Storage::disk('s3')->url('/');
                 $s3BucketUrl = rtrim(Storage::disk('s3')->url('/'), '/');
                 $img_url = $s3BucketUrl . '/' . $uploadedImagePath;
+            } else {
+                $img_url = null;
             }
             $user = User::create([
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
                 'password' => bcrypt($request->input('password')),
                 'role' => 1,
+                'email_verified_at' => now(),
             ]);
 
             $company = Company::create([

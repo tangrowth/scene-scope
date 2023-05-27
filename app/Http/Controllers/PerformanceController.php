@@ -112,6 +112,8 @@ class PerformanceController extends Controller
                 $s3BucketUrl = Storage::disk('s3')->url('/');
                 $s3BucketUrl = rtrim(Storage::disk('s3')->url('/'), '/');
                 $form['img_url'] = $s3BucketUrl . '/' . $uploadedImagePath;
+            } else {
+                $form['img_url'] = null;
             }
             $performance = Performance::create($form);
             foreach ($request->input('dates') as $date) {

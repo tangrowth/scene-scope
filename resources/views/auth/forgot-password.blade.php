@@ -7,7 +7,7 @@
         </x-slot>
 
         <div class="mb-4 text-sm text-gray-600">
-            {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+            パスワードを忘れましたか？問題ありません。メールアドレスをお知らせいただければ、パスワードリセットリンクをメールでお送りします。リンクから新しいパスワードを選択することができます。
         </div>
 
         <!-- Session Status -->
@@ -28,9 +28,10 @@
 
             <div class="flex items-center justify-end mt-4">
                 <x-button>
-                    {{ __('Email Password Reset Link') }}
+                    パスワードリセットリンクを送信する
                 </x-button>
             </div>
         </form>
     </x-auth-card>
+
 </x-guest-layout>

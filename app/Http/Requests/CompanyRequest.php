@@ -11,8 +11,7 @@ class CompanyRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'description' => 'required|string',
-            'web_site_url' => 'required|url|max:255',
-            'img_url' => 'url|max:255',
+            'web_site_url' => 'nullable|url',
         ];
     }
 
@@ -25,10 +24,6 @@ class CompanyRequest extends FormRequest
             'description.string' => '劇団説明は文字列で入力してください',
             'description.required' => '劇団説明は必須項目です',
             'web_site_url.url' => '公式サイトは正しいURL形式で入力してください',
-            'web_site_url.max' => '公式サイトは255文字以内で入力してください',
-            'web_site_url.required' => '公式サイトは必須項目です',
-            'img_url.url' => '画像URLは正しいURL形式で入力してください',
-            'img_url.max' => '画像URLは255文字以内で入力してください',
         ];
     }
 }

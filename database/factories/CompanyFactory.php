@@ -8,16 +8,12 @@ class CompanyFactory extends Factory
 {
     public function definition()
     {
-        $imagePath = 'storage\images\default.png';
-
         return [
             'name' => $this->faker->word,
             'description'
             => $this->faker->realText,
             'web_site_url'
             => $this->faker->url,
-            'img_url'
-            => $imagePath,
         ];
     }
 }
