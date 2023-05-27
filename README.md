@@ -43,4 +43,7 @@
 - AWS S3
 - Intervention Image
 
+## テーブル設計
+![ER drawio](https://github.com/tangrowth/scene-scope/assets/101622404/789dcd87-f0e6-449b-9590-a7a282c32515)
+
 ## 環境構築方法
