@@ -83,3 +83,6 @@ php artisan serve
 - 劇団ユーザー
 メールアドレス： owner@owner.com
 パスワード：　password
+
+### 本番環境
+http://52.192.152.70/
