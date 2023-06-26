@@ -10,7 +10,7 @@
     @if($company->img_url)
     <img src="{{ asset($company->img_url) }}" alt="{{$company->title}}">
     @else
-    <img src="{{ asset('storage/images/default.png') }}">
+    <img src="https://scene-scope.s3.ap-northeast-1.amazonaws.com/default.png">
     @endif
   </div>
   <div class="company-info-content">

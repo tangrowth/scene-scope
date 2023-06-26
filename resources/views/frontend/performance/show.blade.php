@@ -11,7 +11,7 @@
       @if($performance->img_url)
       <img src="{{ $performance->img_url }}" alt="{{$performance->title}}">
       @else
-      <img src="{{ asset('storage/images/default.png') }}">
+      <img src="https://scene-scope.s3.ap-northeast-1.amazonaws.com/default.png">
       @endif
     </div>
     <div class="container-title">
@@ -142,7 +142,7 @@
       </table>
       <form action="{{ route('reserve.destroy',['id' => $reservation->id]) }}" method="post" onsubmit="return confirm('予約をキャンセルしますか？')">
         @csrf
-        <button class="delete-btn"><img src="{{ asset('storage/images/cross.png') }}"></button>
+        <button class="delete-btn"><img src="https://scene-scope.s3.ap-northeast-1.amazonaws.com/cross.png"></button>
       </form>
       @endforeach
       @endif

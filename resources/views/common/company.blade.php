@@ -7,7 +7,7 @@
         @if($company->img_url)
         <img src="{{ asset($company->img_url) }}" alt="{{$company->title}}">
         @else
-        <img src="{{ asset('storage/images/default.png') }}">
+        <img src="https://scene-scope.s3.ap-northeast-1.amazonaws.com/default.png">
         @endif
       </div>
       <div class="com-card-content">
@@ -18,7 +18,7 @@
           <form action="{{ route('favorite.off', [ 'id' => $favorites->where('company_id', $company->id)->first()->id ]) }}" method="post">
             @csrf
             <button>
-              <img src="{{ asset('storage/images/heart_on.png') }}" alt="お気に入り">
+              <img src="https://scene-scope.s3.ap-northeast-1.amazonaws.com/heart_on.png" alt="お気に入り">
             </button>
           </form>
           @else
@@ -26,7 +26,7 @@
             @csrf
             <input type="hidden" value="{{ $company->id }}" name="company_id">
             <button>
-              <img src="{{ asset('storage/images/heart_off.png') }}" alt="お気に入り">
+              <img src="https://scene-scope.s3.ap-northeast-1.amazonaws.com/heart_off.png" alt="お気に入り">
             </button>
           </form>
           @endif
@@ -37,7 +37,7 @@
           <form action="{{ route('company.delete') }}" method="post" onsubmit="return confirm('本当に削除しますか？');">
             @csrf
             <input type="hidden" value="{{ $company->id }}" name="id">
-            <button class="delete-btn"><img src="{{ asset('storage/images/cross.png') }}"></button>
+            <button class="delete-btn"><img src="https://scene-scope.s3.ap-northeast-1.amazonaws.com/cross.png"></button>
           </form>
         </div>
         <div>

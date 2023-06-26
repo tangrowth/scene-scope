@@ -4,7 +4,7 @@
       @if($reservation->performance->img_url)
       <img src="{{ asset($reservation->performance->img_url) }}" alt="{{$reservation->performance->title}}">
       @else
-      <img src="{{ asset('storage/images/default.png') }}">
+      <img src="https://scene-scope.s3.ap-northeast-1.amazonaws.com/default.png">
       @endif
     </div>
     <div class="reserve-card-content">
@@ -27,7 +27,7 @@
 </div>
 <form action="{{ route('reserve.destroy',['id' => $reservation->id]) }}" method="post" onsubmit="return confirmCancel()">
   @csrf
-  <button class="delete-btn"><img src="{{ asset('storage/images/cross.png') }}"></button>
+  <button class="delete-btn"><img src="https://scene-scope.s3.ap-northeast-1.amazonaws.com/cross.png"></button>
 </form>
 <script>
   function confirmCancel() {
