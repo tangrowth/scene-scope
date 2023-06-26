@@ -74,3 +74,12 @@ php artisan key:generate
 php artisan storage:link
 php artisan serve
 ```
+
+### ログイン方法
+- 管理者ユーザー
+メールアドレス：admin@admin.com
+パスワード：password
+
+- 劇団ユーザー
+メールアドレス： owner@owner.com
+パスワード：　password
