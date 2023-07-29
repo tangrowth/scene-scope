@@ -85,4 +85,4 @@ php artisan serve
 パスワード：　password
 
 ### 本番環境
-http://52.192.152.70/
+http://3.115.149.109
