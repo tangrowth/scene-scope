@@ -8,7 +8,7 @@
   <h2 class="container-title">予約確認</h2>
   <form action="{{ route('reserve.store') }}" method="POST">
     @csrf
-    <table class="detail-table">
+    <table>
       <tr>
         <th>公演</th>
         <td>{{$data['performance']->title}}</td>
@@ -25,8 +25,8 @@
         <input type="hidden" value="{{$inputs['date_id']}}" name="date_id">
       </tr>
     </table>
-    <input type="submit" value="内容を修正する" name="action">
-    <input type="submit" value="申込みを確定する" name="action">
+    <input type="submit" value="修正" name="action" class="main__btn">
+    <input type="submit" value="確定" name="action" class="main__btn">
   </form>
 </div>
 @endsection

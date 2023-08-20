@@ -17,18 +17,18 @@ class ReservationController extends Controller
         return view('frontend.reservation.thanks');
     }
 
-    public function create(Request $request)
+    public function create(ReservationRequest $request)
     {
         $data =array(
             'number' => $request['number'],
-            'date' => Date::where('id', $request->date_id)->first(),
-            'performance' =>Performance::where('id', $request->performance_id)->first(),
+            'date' => Date::find($request->date_id),
+            'performance' =>Performance::find($request->performance_id),
         );
         $inputs = $request->all();
         return view('frontend.reservation.confirm', compact('data', 'inputs'));
     }
 
-    public function store(ReservationRequest $request)
+    public function store(Request $request)
     {
         $user_id = Auth::id();
         $form = [
@@ -36,15 +36,26 @@ class ReservationController extends Controller
             'performance_id' => $request->input('performance_id'),
             'date_id' => $request->input('date_id'),
             'number' => $request->input('number'),
+            'is_used' => false,
         ];
         $action = $request->input('action');
-        if ($action !== '申込みを確定する') {
+        if ($action !== '確定') {
             return redirect()
             ->route('performance', ['id' => $form['performance_id']]);
         } else {
+            $date = Date::find($form['date_id']);
+            $date->reserved = $date->reserved + $form['number'];
+            $date->save();
             Reservation::create($form);
             return redirect()->route('reserve.thanks');
         }
+    }
+
+    public function cancel(Request $request){
+        $reservation = Reservation::find($request->id);
+        $reservation -> is_canceled = false;
+        $reservation->save();
+        return back();
     }
 
     public function destroy($id)

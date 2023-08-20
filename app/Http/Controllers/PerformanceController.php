@@ -7,6 +7,7 @@ use App\Models\Reservation;
 use App\Models\Company;
 use App\Models\Favorite;
 use App\Models\User;
+use App\Models\Date;
 use Illuminate\Http\Request;
 use App\Http\Requests\PerformanceRequest;
 use Illuminate\Support\Facades\Auth;
@@ -18,41 +19,43 @@ class PerformanceController extends Controller
 {
     public function index()
     {
-        $performances = Performance::orderBy('created_at', 'desc')->take(4)->get();
-        $companies = Company::orderBy('created_at', 'desc')->take(4)->get();
-        $favorites = Auth::user() ? Favorite::where('user_id', Auth::user()->id)->get() : null;
-        return view('index', compact('performances', 'companies', 'favorites'));
+        $performances = Performance::latest()->take(4)->get();
+        $companies = Company::latest()->take(4)->get();
+        return view('index', compact('performances', 'companies'));
     }
-
+    
     public function all()
     {
-        $performances = Performance::orderBy('created_at', 'desc')->get();
-        return view('frontend.performance.index', compact('performances'));
-    }
-
-
-    public function show($id)
-    {
-        if (Auth::check()) {
-            $performance = Performance::find($id);
-            $user_id = Auth::user()->id;
-            $reservations = Reservation::where('user_id', $user_id)
-                ->where('performance_id', $id)
-                ->get();
-            return view('frontend.performance.show', compact('performance', 'reservations'));
-        } else {
-            $performance = Performance::find($id);
-            return view('frontend.performance.show', compact('performance'));
-        }
+        $performances = Performance::latest()->paginate(12);
+        $title = "全ての公演";
+        $input = '';
+        return view('frontend.performance.index', compact('performances', 'title', 'input'));
     }
 
     public function search(Request $request)
     {
-        $performances = Performance::where('title', 'LIKE', "%{$request->input}%")->get();
-        $companies = Company::where('name', 'LIKE', "%{$request->input}%")->get();
-        $favorites = Auth::user() ? Favorite::where('user_id', Auth::user()->id)->get() : null;
-        return view('index', compact('performances', 'companies', 'favorites'));
+        $performances = Performance::latest()->where('title', 'LIKE', "%{$request->input}%")->paginate(12);
+        $title = '公演　検索結果';
+        $input = $request->input;
+        return view('frontend.performance.index', compact('performances', 'title', 'input'));
     }
+
+    public function show($id)
+    {
+        $performance = Performance::find($id);
+        $dates = Date::where('performance_id', $id)->latest()->get();
+        if (Auth::check()) {
+            $reservations = Reservation::where('user_id', Auth::id())
+            ->whereHas('date', function ($query) use ($id) {
+                $query->where('performance_id', $id);
+            })
+            ->get();
+            return view('frontend.performance.show', compact('performance', 'dates', 'reservations'));
+        } else {
+            return view('frontend.performance.show', compact('performance', 'dates'));
+        }
+    }
+
 
     public function create()
     {

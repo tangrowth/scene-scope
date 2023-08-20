@@ -5,7 +5,7 @@
 @endsection
 
 @section('main')
-<div class="reserve-comfirm ">
+<div class="container">
   <p>ご予約ありがとうございます！</p>
   <p>予約が完了しました</p>
   <p>予約は<a href="{{ route('mypage') }}">マイページ</a>よりご確認ください。</p>

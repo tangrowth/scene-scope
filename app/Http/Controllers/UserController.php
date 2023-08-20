@@ -17,11 +17,12 @@ class UserController extends Controller
 {
     public function index(){
         $user = Auth::user();
-        $reservations = Reservation::where('user_id', $user->id)->get();
+        $reservations = Reservation::where('user_id', $user->id)->where('is_used', false)->get();
+        $usedReservations = Reservation::where('user_id', $user->id)->where('is_used', true)->get();
         $favorites = Favorite::where('user_id', $user->id)->get();
         $companyIds = $favorites->pluck('company_id');
         $companies = Company::whereIn('id', $companyIds)->get();
-        return view('frontend.mypage', compact('user','reservations', 'favorites', 'companies'));
+        return view('frontend.user.mypage', compact('user','reservations', 'usedReservations', 'favorites', 'companies'));
     }
 
     public function owner(){

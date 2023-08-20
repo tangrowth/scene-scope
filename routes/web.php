@@ -10,16 +10,18 @@ use App\Http\Controllers\UserController;
 
 Route::get('/', [PerformanceController::class, 'index'])->name('home');
 Route::get('/performance/all', [PerformanceController::class, 'all'])->name('performance.all');
-Route::get('/company/all', [CompanyController::class, 'all'])->name('company.all');
+Route::get('/performance/search', [PerformanceController::class, 'search'])->name('performance.search');
 Route::get('/performance/{id}', [PerformanceController::class, 'show'])->name('performance');
-Route::get('/company/{id}', [CompanyController::class, 'index'])->name('company');
-Route::get('/search', [PerformanceController::class, 'search'])->name('search');
+Route::get('/company/all', [CompanyController::class, 'all'])->name('company.all');
+Route::get('/company/search', [CompanyController::class, 'search'])->name('company.search');
+Route::get('/company/{id}', [CompanyController::class, 'show'])->name('company');
 
 Route::middleware(['verified'])->group(function () {
   Route::post('/reservation/confirm', [ReservationController::class, 'create'])->name('reserve.confirm');
   Route::get('/reservation/thanks', [ReservationController::class, 'thanks'])->name('reserve.thanks');
-  Route::post('/reservation/{id}', [ReservationController::class, 'destroy'])->name('reserve.destroy');
+  Route::post('/reservation/cancel',[ReservationController::class, 'cancel'])->name('reserve.cancel');
   Route::post('/reservation', [ReservationController::class, 'store'])->name('reserve.store');
+  Route::post('/reservation/{id}', [ReservationController::class, 'destroy'])->name('reserve.destroy');
   Route::get('/mypage', [UserController::class, 'index'])->name('mypage');
   Route::get('/user/edit', [UserController::class, 'edit'])->name('mypage.edit');
   Route::put('/user/edit', [UserController::class, 'update'])->name('mypage.update');

@@ -1,43 +1,21 @@
 <div class="container-cards">
   @if (@isset($performances))
   @foreach($performances as $performance)
-  <div class="container-card">
-    <a href="{{ route('performance', ['id' => $performance->id]) }}">
-      <div class="card-img">
+  <div class="pf__card">
+    <a href="{{ route('performance' , [ 'id' => $performance->id ]) }}">
+      <div class="pf__card-main">
         @if($performance->img_url)
-        <img src="{{ asset($performance->img_url) }}" alt="{{$performance->title}}">
+        <img src="{{ $performance->img_url }}" alt="">
         @else
-        <img src="https://scene-scope.s3.ap-northeast-1.amazonaws.com/default.png">
+        <img src="{{ asset('storage/images/default.png') }}" alt="">
         @endif
+        <span>
+          <h3>{{ $performance->title }}</h3>
+          <p>{{$performance->Company->name}}</p>
+        </span>
       </div>
-      <p class="pf-card-com">{{$performance->Company->name}}</p>
-      <div class="pf-card-content">
-        <div>
-          <p>{{$performance->title}}</p>
-          <p>{{$performance->venue}}</p>
-        </div>
-        <div>
-          @can('admin')
-          <div>
-            <form action="{{ route('performance.delete') }}" method="post" onsubmit="return confirm('本当に削除しますか？');">
-              @csrf
-              <input type="hidden" name="id" value="{{$performance->id}}">
-              <button>削除</button>
-            </form>
-          </div>
-          @endcan
-          @can('owner')
-          @if($performance->company_id == Auth::user()->company->id)
-          <div>
-            <form action="{{ route('performance.delete') }}" method="post" onsubmit="return confirm('本当に削除しますか？');">
-              @csrf
-              <input type="hidden" name="id" value="{{$performance->id}}">
-              <button>削除</button>
-            </form>
-          </div>
-          @endif
-          @endcan
-        </div>
+      <div class="pf__card-date">
+        <p>{{$performance->dates->first()->date->format('Y/m/d')}}～{{$performance->dates->last()->date->format('Y/m/d')}}</p>
       </div>
     </a>
   </div>

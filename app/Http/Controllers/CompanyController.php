@@ -7,6 +7,7 @@ use App\Models\Favorite;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\CompanyRequest;
+use App\Models\Performance;
 use Illuminate\Support\Facades\Auth;
 use InterventionImage;
 use Illuminate\Support\Facades\Storage;
@@ -15,17 +16,28 @@ use Illuminate\Support\Facades\Validator;
 
 class CompanyController extends Controller
 {
-    public function index($id)
+    public function show($id)
     {
         $company = Company::find($id);
-        return view('frontend.company.show', compact('company'));
+        $performances = Performance::where('company_id', $id)->latest()->get();
+        $favorite = Favorite::where('user_id', Auth::id())->where('company_id', $id)->first();
+        return view('frontend.company.show', compact('company', 'performances', 'favorite'));
     }
 
     public function all()
     {
-        $companies = Company::orderBy('created_at', 'desc')->get();
-        $favorites = Auth::user() ? Favorite::where('user_id', Auth::user()->id)->get() : null;
-        return view('frontend.company.index', compact('companies', 'favorites'));
+        $companies = Company::latest()->paginate(12);
+        $title = '劇団一覧';
+        $input = '';
+        return view('frontend.company.index', compact('companies', 'title', 'input'));
+    }
+
+    public function search(Request $request)
+    {
+        $companies = Company::where('name', 'LIKE', "%{$request->input}%")->latest()->paginate(12);
+        $title = '劇団　検索結果';
+        $input = $request->input;
+        return view('frontend.company.index', compact('companies', 'title', 'input'));
     }
 
     public function confirm(CompanyRequest $request)

@@ -23,7 +23,8 @@ class DateFactory extends Factory
     public function definition()
     {
         return [
-            'date' => Carbon::parse($this->faker->dateTime)->format('Y/m/d H:i'),
+            'date' => $this->faker->dateTimeBetween($startDate = '-1 month', $endDate = 'now'),
+            'capacity' => $this->faker->numberBetween(10, 50),
             'performance_id' => $this->faker->numberBetween(1, 10),
         ];
     }

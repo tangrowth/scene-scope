@@ -5,9 +5,14 @@
 
 @section('main')
 <div class="container">
-  <h2 class="container-title">劇団</h2>
-  <div class=" com-cards">
-    @include('common.company', ['companies' => $companies])
-  </div>
+  <h2 class="container-title">{{ $title }}</h2>
+  <form action="{{ route('company.search') }}" method="get">
+    <input type="text" name="input" value="{{ $input }}" class="main__input">
+    <button class="main__btn">検索</button>
+  </form>
+</div>
+<div class="container">
+  @include('common.company', ['companies' => $companies])
+  {{ $companies->links() }}
 </div>
 @endsection

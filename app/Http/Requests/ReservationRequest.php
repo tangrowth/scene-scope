@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Date;
 
 class ReservationRequest extends FormRequest
 {
@@ -23,8 +24,15 @@ class ReservationRequest extends FormRequest
      */
     public function rules()
     {
+        $date = Date::find($this->input('date_id'));
+
         return [
-            'number' => 'required|integer',
+            'number' => [
+                'required',
+                'integer',
+                'min:1',
+                'max:' . ($date->capacity - $date->reserved)
+            ],
             'date_id' => 'required|integer',
         ];
     }
@@ -38,9 +46,9 @@ class ReservationRequest extends FormRequest
     {
         return [
             'number.required' => '予約数は必須です。',
-            'number.integer' => '予約数は整数で指定してください。',
-            'date_id.required' => '日付IDは必須です。',
-            'date_id.integer' => '日付IDは整数で指定してください。',
+            'number.min' => '人数は1人以上にしてください、',
+            'number.max' => '残席数オーバーです。',
+            'date_id.required' => '日付の選択は必須です。',
         ];
     }
 }

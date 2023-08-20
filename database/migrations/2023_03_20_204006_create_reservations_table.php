@@ -17,9 +17,10 @@ class CreateReservationsTable extends Migration
             $table->id();
             $table->integer('number');
             $table->string('status')->nullable();
-            $table->integer('performance_id');
             $table->integer('date_id');
             $table->integer('user_id');
+            $table->boolean('is_canceled')->nullable();
+            $table->boolean('is_used');
             $table->timestamps();
         });
     }
