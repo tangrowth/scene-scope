@@ -8,24 +8,26 @@
   <h2 class="container-title">予約情報</h2>
   <table>
     <tr>
-      <td>公演名</td>
-      <td>予約件数</td>
-      <td></td>
+      <th>公演名</th>
+      <th></th>
+      <th>予約件数</th>
+      <td>キャンセル申請</td>
     </tr>
-    @foreach($performances as $performance)
+    @foreach($dates as $date)
     <tr>
       <td>
-        {{$performance->title}}
+        <a href="/admin/reserve/list/{{ $date->id }}">
+          {{ $date->performance->title }}
+        </a>
       </td>
       <td>
-        {{ $performance->reservations_count }}件
+        {{ $date->start_date->format('Y/m/d H:i') }}
       </td>
       <td>
-        <form action="{{ route('reserve.show') }}" method="GET">
-          @csrf
-          <input type="hidden" name="performance_id" value="{{ $performance->id }}">
-          <button type="submit">詳細を確認する</button>
-        </form>
+        {{ $date->reserved }}件
+      </td>
+      <td>
+        {{ $date->reservations ? $date->reservations->where('is_canceled', true)->count() : 0 }}件
       </td>
     </tr>
     @endforeach

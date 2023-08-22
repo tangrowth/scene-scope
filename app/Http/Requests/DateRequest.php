@@ -24,7 +24,7 @@ class DateRequest extends FormRequest
     public function rules()
     {
         return [
-            'date' => 'required',
+            'start_date' => 'required',
         ];
     }
 
@@ -36,7 +36,7 @@ class DateRequest extends FormRequest
     public function messages()
     {
         return [
-            'date.required' => '日付は必須です。',
+            'start_date.required' => '日付は必須です。',
         ];
     }
 }

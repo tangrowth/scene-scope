@@ -22,7 +22,8 @@ class CreatePerformancesTable extends Migration
             $table->string('address');
             $table->string('venue');
             $table->string('web_site_url')->nulla;
-            $table->integer('company_id');
+            $table->unsignedBigInteger('company_id');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('CASCADE');
             $table->timestamps();
         });
     }

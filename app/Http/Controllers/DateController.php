@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests\PerformanceRequest;
 use App\Models\Date;
 use App\Models\Performance;
-use Carbon\Carbon;
 
 
 class DateController extends Controller
@@ -20,7 +19,15 @@ class DateController extends Controller
     public function edit(Request $request)
     {
         $performance = Performance::find($request->id);
-        return view('backend.performance.date', compact('performance'));
+        $dates = Date::where('performance_id', $performance->id)->orderBy('start_date')->get();
+        return view('backend.performance.date', compact('performance', 'dates'));
+    }
+
+    public function update(Request $request)
+    {
+        $form = $request->only(['capacity']);
+        Date::find($request->id)->update($form);
+        return back();
     }
 
     public function delete(Request $request)
@@ -31,13 +38,8 @@ class DateController extends Controller
 
     public function add(Request $request)
     {
-        $performances = $request->input('performance_id');
-        foreach ($request->input('dates') as $index => $date) {
-            $performance_id = $performances[$index];
-            $datetime = Carbon::parse($date);
-            $formatted_date = $datetime->format('Y/m/d H:i');
-            Performance::find($performance_id)->dates()->create(['date' => $formatted_date]);
-        }
+        $form = $request->all();
+        Date::create($form);
         return redirect()->back();
     }
 

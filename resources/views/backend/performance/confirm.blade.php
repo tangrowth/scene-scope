@@ -46,13 +46,14 @@
       </tr>
       <tr>
         <th>公演日</th>
-        <td><input type="text" name="dates[]" value="{{ \Carbon\Carbon::parse($inputs['dates'][0])->format('Y/m/d H:i') }}" readonly></td>
+        <td><input type="text" name="dates[]" value="{{ \Carbon\Carbon::parse($dateCapacities[0]['date'])->format('Y/m/d H:i') }}" readonly></td>
+        <td><input type="text" name="capacities[]" value="{{ $dateCapacities[0]['capacity'] }}" readonly></td>
       </tr>
-      @foreach( array_slice($inputs['dates'], 1) as $date)
+      @foreach( array_slice($dateCapacities, 1) as $dateCapacity)
       <tr>
         <th></th>
-        <td> <input type="text" name="dates[]" value="{{ \Carbon\Carbon::parse($date)->format('Y/m/d H:i') }}" readonly></td>
-        </td>
+        <td><input type="text" name="dates[]" value="{{ \Carbon\Carbon::parse($dateCapacity['date'])->format('Y/m/d H:i') }}" readonly></td>
+        <td><input type="text" name="capacities[]" value="{{ $dateCapacity['capacity']}}" readonly></td>
       </tr>
       @endforeach
     </table>

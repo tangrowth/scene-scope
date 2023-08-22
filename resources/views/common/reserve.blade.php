@@ -14,7 +14,7 @@
     <div>
       <p>{{$reservation->date->performance->company->name}}</p>
       <p>{{ $reservation->date->performance->venue }}</p>
-      <p>{{ $reservation->date->date->format('Y/m/d H:i') }}</p>
+      <p>{{ $reservation->date->start_date->format('Y/m/d H:i') }}</p>
       <p>{{ $reservation->number }}人</p>
     </div>
     <div class="card-buttons">

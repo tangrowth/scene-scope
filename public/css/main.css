@@ -148,6 +148,11 @@ main {
   margin: 10px 5% 0 5%;
 }
 
+.container-content {
+  text-align: center;
+  margin: auto;
+}
+
 table {
   border-collapse: collapse;
   border-spacing: 0;

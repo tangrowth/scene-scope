@@ -14,8 +14,11 @@
           <p>{{$performance->Company->name}}</p>
         </span>
       </div>
+      <?php
+      $dates = $performance->dates->sortBy('start_date')->values()->all();
+      ?>
       <div class="pf__card-date">
-        <p>{{$performance->dates->first()->date->format('Y/m/d')}}～{{$performance->dates->last()->date->format('Y/m/d')}}</p>
+        <p>{{$dates[0]->start_date->format('Y/m/d')}}～{{$dates[count($dates) - 1]->start_date->format('Y/m/d')}}</p>
       </div>
     </a>
   </div>

@@ -17,7 +17,7 @@
     <table>
       <tr>
         <th>公演名</th>
-        <td><input type="text" name="title" value="{{ @old('title') }}"></td>
+        <td><input type="text" name="title" value="{{ old('title') }}"></td>
       </tr>
       <tr>
         <th>あらすじ</th>
@@ -26,27 +26,28 @@
       <tr>
         <th>郵便番号</th>
         <td>
-          <input type="text" name="zip11" size="10" maxlength="8" onKeyUp="AjaxZip3.zip2addr(this,'','addr11','addr11');" value="{{ @old('zip11') }}">
+          <input type="text" name="zip11" size="10" maxlength="8" onKeyUp="AjaxZip3.zip2addr(this,'','addr11','addr11');" value="{{ old('zip11') }}">
         </td>
       </tr>
       <tr>
         <th>住所</th>
         <td>
-          <input type="text" name="addr11" size="60" value="{{ @old('addr11') }}">
+          <input type="text" name="addr11" size="60" value="{{ old('addr11') }}">
         </td>
       </tr>
       <tr>
         <th>建物名</th>
-        <td><input type="text" name="venue" value="{{ @old('venue') }}"></td>
+        <td><input type="text" name="venue" value="{{ old('venue') }}"></td>
       </tr>
       <tr>
         <th>公式サイト</th>
-        <td><input type="text" name="web_site_url" value="{{ @old('web_site_url') }}"></td>
+        <td><input type="text" name="web_site_url" value="{{ old('web_site_url') }}"></td>
       </tr>
       <tbody id="dates_tbody">
         <tr>
           <th>公演日</th>
           <td><input type="datetime-local" name="dates[]" class="form-control" id="date1"></td>
+          <td><label for="">席数</label><input type="number" name="capacities[]" value="{{ old('capacity') }}"></td>
           <td><button type="button" class="btn btn-danger delete-date">削除する</button></td>
         </tr>
       </tbody>
@@ -69,6 +70,7 @@
       new_tr.innerHTML = `
       <th></th>
       <td><input type="datetime-local" name="dates[]" class="form-control" id="date${date_count}"></td>
+      <td><label for="">席数</label><input type="number" name="capacities[]" value="{{ old('capacity') }}"></td>
       <td><button type="button" class="btn btn-danger delete-date">削除する</button></td>
     `;
       new_tr.getElementsByTagName("th")[0].innerHTML = "";

@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Reservation;
 use Illuminate\Database\Seeder;
-use App\Models\Date;
 
-class DatesTableSeeder extends Seeder
+class ReservationsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,6 @@ class DatesTableSeeder extends Seeder
      */
     public function run()
     {
-        Date::factory()->count(50)->create();
+        Reservation::factory()->count(10)->create();
     }
 }

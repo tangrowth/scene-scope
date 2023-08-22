@@ -5,6 +5,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DateController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\PerformanceController;
+use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\UserController;
 
@@ -21,7 +22,7 @@ Route::middleware(['verified'])->group(function () {
   Route::get('/reservation/thanks', [ReservationController::class, 'thanks'])->name('reserve.thanks');
   Route::post('/reservation/cancel',[ReservationController::class, 'cancel'])->name('reserve.cancel');
   Route::post('/reservation', [ReservationController::class, 'store'])->name('reserve.store');
-  Route::post('/reservation/{id}', [ReservationController::class, 'destroy'])->name('reserve.destroy');
+  Route::post('/reservation', [ReservationController::class, 'delete'])->name('reserve.delete');
   Route::get('/mypage', [UserController::class, 'index'])->name('mypage');
   Route::get('/user/edit', [UserController::class, 'edit'])->name('mypage.edit');
   Route::put('/user/edit', [UserController::class, 'update'])->name('mypage.update');
@@ -39,9 +40,11 @@ Route::middleware(['verified'])->group(function () {
       Route::post('/company/edit', [CompanyController::class, 'update'])->name('company.update');
       Route::get('/performance/date', [DateController::class, 'edit'])->name('date.edit');
       Route::post('/performance/date', [DateController::class, 'delete'])->name('date.delete');
+      Route::post('/performance/date/update', [DateController::class, 'update'])->name('date.update');
       Route::post('/performance/date/add', [DateController::class, 'add'])->name('date.add');
       Route::get('/reserve', [ReservationController::class, 'index'])->name('reserve.menu');
-      Route::get('/reserve/show', [ReservationController::class, 'show'])->name('reserve.show');
+      Route::get('/reserve/list/{id}', [ReservationController::class, 'show'])->middleware('check.date.access')->name('reserve.show');
+      Route::post('/entry/{id}', [QrCodeController::class, 'entry'])->name('entry');
     });
     
     Route::middleware(['can:owner'])->group(function () {

@@ -31,12 +31,12 @@
       </tr>
       <tr>
         <th>公演日</th>
-        <td>{{$dates->first()->date->format('Y/m/d H:i')}}</td>
+        <td>{{$dates->first()->start_date->format('Y/m/d H:i')}}</td>
       </tr>
       @foreach($dates->slice(1) as $date)
       <tr>
         <th></th>
-        <td>{{$date->date->format('Y/m/d H:i')}}</td>
+        <td>{{$date->start_date->format('Y/m/d H:i')}}</td>
       </tr>
       @endforeach
     </table>
@@ -90,14 +90,13 @@
     @endcan
   </div>
   <div class="container3">
-    @auth
     <h3>予約</h3>
+    @auth
     @if($errors->any())
     @foreach ($errors->all() as $error)
     {{ $error }}
     @endforeach
     @endif
-
     <form action="{{ route('reserve.confirm') }}" method="POST">
       @csrf
       <table>
@@ -115,7 +114,7 @@
           <td>
             <select name="date_id" id="dateSelect">
               @foreach($performance->dates as $date)
-              <option value="{{$date->id}}" data-capacity="{{ $date->capacity }}" data-reserved="{{ $date->reserved }}">{{$date->date->format('Y/m/d H:i')}}</option>
+              <option value="{{$date->id}}" data-capacity="{{ $date->capacity }}" data-reserved="{{ $date->reserved }}">{{$date->start_date->format('Y/m/d H:i')}}</option>
               @endforeach
             </select>
           </td>
@@ -148,16 +147,16 @@
     <table>
       @foreach($reservations as $reservation)
       <tr>
-        <td>{{ $reservation->date->date->format('Y/m/d H:i') }}</td>
+        <td>{{ $reservation->date->start_date->format('Y/m/d H:i') }}</td>
         <td>{{ $reservation->number }}人</td>
-        @if($reservation->is_canceled === null)
+        @if($reservation->is_canceled === true || $reservation->is_canceled === 1)
+        <td>キャンセル申請中</td>
+        @else
         <form action="{{ route('reserve.cancel') }}" method="post" onsubmit="return confirmCancel()">
           @csrf
           <input type="hidden" name="id" value="{{ $reservation->id }}">
           <td><button class="main__btn">キャンセル</button></td>
         </form>
-        @else
-        <td>キャンセル申請中</td>
         @endif
       </tr>
       @endforeach
@@ -165,42 +164,10 @@
     @endif
     @endauth
     @guest
-    <p>予約にはログインが必要です</p>
+    <p class="container-content">予約にはログインが必要です</p>
     <a href="../login">ログインはこちら</a>
     <a href="../register">新規登録はこちら</a>
     @endguest
   </div>
 </div>
-<!--
-  <div>
-    <div id="map" class="map"></div>
-    <script type="text/javascript">
-      function initMap() {
-        const geocoder = new google.maps.Geocoder();
-        geocoder.geocode({
-          address: '{{ $performance->address }}'
-        }, function(results, status) {
-          if (status === google.maps.GeocoderStatus.OK) {
-            const latlng = {
-              lat: results[0].geometry.location.lat(),
-              lng: results[0].geometry.location.lng()
-            };
-            const opts = {
-              zoom: 15,
-              center: latlng
-            };
-            const map = new google.maps.Map(document.getElementById('map'), opts);
-            new google.maps.Marker({
-              position: latlng,
-              map: map
-            });
-          } else {
-            console.error('Geocode was not successful for the following reason: ' + status);
-          }
-        });
-      }
-      google.maps.event.addDomListener(window, 'load', initMap);
-    </script>
-  </div>
-    -->
 @endsection

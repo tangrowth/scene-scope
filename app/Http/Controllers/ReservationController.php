@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use App\Models\Reservation;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Date;
 use App\Models\Performance;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ReservationRequest;
 
 class ReservationController extends Controller
@@ -53,14 +53,14 @@ class ReservationController extends Controller
 
     public function cancel(Request $request){
         $reservation = Reservation::find($request->id);
-        $reservation -> is_canceled = false;
+        $reservation -> is_canceled = true;
         $reservation->save();
         return back();
     }
 
-    public function destroy($id)
-    {
-        $reservation = Reservation::find($id);
+    public function delete(Request $request)
+    {   
+        $reservation = Reservation::find($request->id);
         $reservation->delete();
         return back();
     }
@@ -69,27 +69,21 @@ class ReservationController extends Controller
     {
         $user = Auth::user();
         if ($user->admin){
-            $performances = Performance::withCount('reservations') -> get();
+            $dates = Date::all()->latest()-> get();
         } else {
             $company_id = Company::where('user_id', $user->id) -> first() -> id;
-            $performances = Performance::where('company_id', $company_id)-> withCount('reservations')-> get();
+            $performances = Performance::where('company_id', $company_id)-> get();
+            $performanceIds = $performances->pluck('id');
+            $dates = Date::whereIn('performance_id', $performanceIds)->latest()->get();
         }
-        return view ('backend.reservation.index', compact('performances'));
+        return view ('backend.reservation.index', compact('dates'));
     }
 
-    public function show(Request $request)
+    public function show($id)
     {
-        $performance = Performance::find($request->performance_id);
-        $dates = $performance->dates;
-        $reservationsByDate = [];
-        foreach ($dates as $date) {
-            $reservations = Reservation::where('performance_id', $request->performance_id)
-                ->where('date_id', $date->id)
-                ->get();
-
-            $reservationsByDate[$date->id] = $reservations;
-        }
-        return view('backend.reservation.show', compact('performance', 'reservationsByDate', 'dates'));
+        $reservations = Reservation::where('date_id', $id)->get();
+        $date = Date::find($id);
+        return view('backend.reservation.show', compact('date', 'reservations'));
     }
 
 

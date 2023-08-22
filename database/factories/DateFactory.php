@@ -5,6 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Carbon\Carbon;
 use App\Models\Date;
+use App\Models\Performance;
 
 class DateFactory extends Factory
 {
@@ -23,9 +24,9 @@ class DateFactory extends Factory
     public function definition()
     {
         return [
-            'date' => $this->faker->dateTimeBetween($startDate = '-1 month', $endDate = 'now'),
+            'start_date' => $this->faker->dateTimeBetween($startDate = '-1 month', $endDate = 'now'),
             'capacity' => $this->faker->numberBetween(10, 50),
-            'performance_id' => $this->faker->numberBetween(1, 10),
+            'performance_id' => Performance::inRandomOrder()->first()->id,
         ];
     }
 }

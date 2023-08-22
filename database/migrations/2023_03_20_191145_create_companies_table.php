@@ -19,7 +19,8 @@ class CreateCompaniesTable extends Migration
             $table->string('description');
             $table->string('web_site_url')->nullable();
             $table->string('img_url')->nullable();
-            $table->integer('user_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
             $table->timestamps();
         });
     }

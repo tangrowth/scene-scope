@@ -5,13 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Performance;
 use App\Models\Reservation;
 use App\Models\Company;
-use App\Models\Favorite;
 use App\Models\User;
 use App\Models\Date;
 use Illuminate\Http\Request;
 use App\Http\Requests\PerformanceRequest;
+use App\Http\Requests\PerformanceEditRequest;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
 use InterventionImage;
 use Illuminate\Support\Facades\Storage;
 
@@ -78,7 +77,17 @@ class PerformanceController extends Controller
             $image->save($filePath . '/' . $filename);
             $inputs['img_url'] = 'storage/temporary/' . $filename;
         }
-        return view('backend.performance.confirm', compact('inputs'));
+        $dates['date'] = $request->input('dates');
+        $capacities = $request->input('capacities');
+        $dateCapacities = [];
+        foreach ($dates['date'] as $index => $date) {
+            $capacity = $capacities[$index];
+            $dateCapacities[] = [
+                'date' => $date,
+                'capacity' => $capacity,
+            ] ;
+        }
+        return view('backend.performance.confirm', compact('inputs', 'dateCapacities'));
     }
 
     public function store(Request $request)
@@ -93,6 +102,7 @@ class PerformanceController extends Controller
             'address' => $request->input('address'),
             'venue' => $request->input('venue'),
             'web_site_url' => $request->input('web_site_url'),
+            'capacity' => $request->input('capacity'),
             'company_id' => $company_id
         ];
         $action = $request->input('action');
@@ -119,11 +129,18 @@ class PerformanceController extends Controller
                 $form['img_url'] = null;
             }
             $performance = Performance::create($form);
-            foreach ($request->input('dates') as $date) {
-                $datetime = Carbon::parse($date);
-                $formatted_date = $datetime->format('Y/m/d H:i');
-                $performance->dates()->create(['date' => $formatted_date]);
+            $dates = $request->input('dates');
+            $capacities = $request->input('capacities');
+            $dateCapacities = [];
+            foreach ($dates as $index => $date) {
+                $capacity = $capacities[$index];
+                $dateCapacities[] = [
+                    'start_date' => $date,
+                    'capacity' => $capacity,
+                    'performance_id' => $performance->id,
+                ];
             }
+            Date::insert($dateCapacities);
             return redirect()->route('owner');
         }
     }
@@ -132,7 +149,12 @@ class PerformanceController extends Controller
     public function delete(Request $request)
     {
         Performance::find($request->id)->delete();
-        return back();
+        $user = Auth::user();
+        if ($user->role === 1) {
+            return redirect('/admin/owner');
+        } else {
+            return redirect('/admin');
+        }
     }
 
     public function edit(Request $request)
@@ -141,10 +163,9 @@ class PerformanceController extends Controller
         return view('backend.performance.edit', compact('performance'));
     }
 
-    public function update(PerformanceRequest $request)
+    public function update(PerformanceEditRequest $request)
     {
         $form = $request->all();
-        unset($form['_token']);
         Performance::find($request->id)->update($form);
         return redirect('/performance/' . $request->id);
     }

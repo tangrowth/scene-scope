@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Company;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -18,7 +19,7 @@ class PerformanceFactory extends Factory
             'address' => trim($address),
             'venue' => $this->faker->city,
             'web_site_url' => $this->faker->url,
-            'company_id' => $this->faker->numberBetween(1, 10),
+            'company_id' => Company::inRandomOrder()->first()->id,
         ];
     }
 }

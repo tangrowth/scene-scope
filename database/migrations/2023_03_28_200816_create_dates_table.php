@@ -15,10 +15,11 @@ class CreateDatesTable extends Migration
     {
         Schema::create('dates', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('date');
-            $table->integer('capacity');
+            $table->timestamp('start_date');
+            $table->unsignedBigInteger('capacity');
             $table->integer('reserved')->default(0);
-            $table->integer('performance_id');
+            $table->unsignedBigInteger('performance_id');
+            $table->foreign('performance_id')->references('id')->on('performances')->onDelete('CASCADE');
             $table->timestamps();
         });
     }
