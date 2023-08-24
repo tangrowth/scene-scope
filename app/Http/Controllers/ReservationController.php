@@ -83,8 +83,19 @@ class ReservationController extends Controller
     {
         $reservations = Reservation::where('date_id', $id)->get();
         $date = Date::find($id);
-        return view('backend.reservation.show', compact('date', 'reservations'));
+        $input = '';
+        return view('backend.reservation.show', compact('date', 'reservations', 'input'));
     }
 
+    public function search($id, Request $request){
+        $date = Date::find($id);
+        $keyword = $request->input;
+        $reservations = Reservation::where('date_id',$id)
+        ->whereHas('user', function($query) use ($keyword) {
+            $query->where('name', 'like', "%$keyword%");
+        })->get();
+        $input = $request->input;
+        return view('backend.reservation.show', compact('reservations', 'input', 'date'));
+    }
 
 }

@@ -20,8 +20,8 @@ class CreateReservationsTable extends Migration
             $table->foreign('date_id')->references('id')->on('dates')->onDelete('CASCADE');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
-            $table->boolean('is_canceled');
-            $table->boolean('is_used');
+            $table->boolean('is_canceled')->default(false);
+            $table->boolean('is_used')->default(false);
             $table->timestamps();
         });
     }

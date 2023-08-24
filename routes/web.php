@@ -21,13 +21,17 @@ Route::middleware(['verified'])->group(function () {
   Route::post('/reservation/confirm', [ReservationController::class, 'create'])->name('reserve.confirm');
   Route::get('/reservation/thanks', [ReservationController::class, 'thanks'])->name('reserve.thanks');
   Route::post('/reservation/cancel',[ReservationController::class, 'cancel'])->name('reserve.cancel');
+  Route::post('/reservation/delete', [ReservationController::class, 'delete'])->name('reserve.delete');
   Route::post('/reservation', [ReservationController::class, 'store'])->name('reserve.store');
-  Route::post('/reservation', [ReservationController::class, 'delete'])->name('reserve.delete');
+
+  Route::get('/QR/{id}', [QrCodeController::class, 'showQrCode'])->name('Qr.showQrCode');
+
   Route::get('/mypage', [UserController::class, 'index'])->name('mypage');
   Route::get('/user/edit', [UserController::class, 'edit'])->name('mypage.edit');
   Route::put('/user/edit', [UserController::class, 'update'])->name('mypage.update');
   Route::get('/user/password', [UserController::class, 'editPassword'])->name('password.edit');
   Route::post('/user/password', [UserController::class, 'updatePassword'])->name('password.update');
+
   Route::post('/favorite', [FavoriteController::class, 'add'])->name('favorite.on');
   Route::post('/favorite/{id}', [FavoriteController::class, 'delete'])->name('favorite.off');
 
@@ -36,15 +40,21 @@ Route::middleware(['verified'])->group(function () {
       Route::post('/performance/delete', [PerformanceController::class, 'delete'])->name('performance.delete');
       Route::get('/performance/edit', [PerformanceController::class, 'edit'])->name('performance.edit');
       Route::post('/performance/edit', [PerformanceController::class, 'update'])->name('performance.update');
+
       Route::get('/company/edit', [CompanyController::class, 'edit'])->name('company.edit');
       Route::post('/company/edit', [CompanyController::class, 'update'])->name('company.update');
+
       Route::get('/performance/date', [DateController::class, 'edit'])->name('date.edit');
       Route::post('/performance/date', [DateController::class, 'delete'])->name('date.delete');
       Route::post('/performance/date/update', [DateController::class, 'update'])->name('date.update');
       Route::post('/performance/date/add', [DateController::class, 'add'])->name('date.add');
-      Route::get('/reserve', [ReservationController::class, 'index'])->name('reserve.menu');
+
       Route::get('/reserve/list/{id}', [ReservationController::class, 'show'])->middleware('check.date.access')->name('reserve.show');
-      Route::post('/entry/{id}', [QrCodeController::class, 'entry'])->name('entry');
+      Route::get('/reserve/search/{id}', [ReservationController::class, 'search'])->middleware('check.date.access')->name('reserve.search');
+      Route::get('/reserve', [ReservationController::class, 'index'])->name('reserve.menu');
+
+      Route::get('/entry/QR/{id}', [QrCodeController::class, 'showReserve'])->name('Qr.showReserve');
+      Route::get('/entry/{id}', [QrCodeController::class, 'entry'])->name('entry');
     });
     
     Route::middleware(['can:owner'])->group(function () {

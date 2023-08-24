@@ -7,6 +7,12 @@
 @section('main')
 <div class="container">
   <h2 class="container-title">{{ $date->start_date->format('Y/m/d H:i') }}の予約</h2>
+  <div class="">
+    <form action="{{ route('reserve.search', ['id' => $date->id]) }}" method="get">
+      <input type="text" name="input">
+      <button>検索</button>
+    </form>
+  </div>
   <table>
     <tr>
       <th></th>

@@ -18,15 +18,19 @@
       <p>{{ $reservation->number }}人</p>
     </div>
     <div class="card-buttons">
-      <a href="" class="card-button">QR</a>
-      @if($reservation->is_canceled === null)
-      <form action="{{ route('reserve.cancel') }}" method="post" onsubmit="return confirmCancel()">
-        @csrf
-        <input type="hidden" name="id" value="{{ $reservation->id }}">
-        <button class="main__btn">キャンセル</button>
-      </form>
+      @if($reservation->is_used == false)
+        @if($reservation->is_canceled == false)
+        <a href="{{ route('Qr.showQrCode', ['id'=>$reservation->id]) }}" class="card-button">QR</a>
+        <form action="{{ route('reserve.cancel') }}" method="post" onsubmit="return confirmCancel()">
+          @csrf
+          <input type="hidden" name="id" value="{{ $reservation->id }}">
+          <button class="main__btn">キャンセル</button>
+        </form>
+        @else
+        <p class="card-button">キャンセル申請中</p>
+        @endif
       @else
-      <p class="card-button">キャンセル申請中</p>
+        ご来場ありがとうございました！
       @endif
     </div>
   </div>

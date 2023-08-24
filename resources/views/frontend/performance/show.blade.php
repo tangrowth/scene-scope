@@ -149,14 +149,18 @@
       <tr>
         <td>{{ $reservation->date->start_date->format('Y/m/d H:i') }}</td>
         <td>{{ $reservation->number }}人</td>
-        @if($reservation->is_canceled === true || $reservation->is_canceled === 1)
-        <td>キャンセル申請中</td>
+        @if($reservation->is_used === false)
+          @if($reservation->is_canceled === true || $reservation->is_canceled === 1)
+          <td>キャンセル申請中</td>
+          @else
+          <form action="{{ route('reserve.cancel') }}" method="post" onsubmit="return confirmCancel()">
+            @csrf
+            <input type="hidden" name="id" value="{{ $reservation->id }}">
+            <td><button class="main__btn">キャンセル</button></td>
+          </form>
+          @endif
         @else
-        <form action="{{ route('reserve.cancel') }}" method="post" onsubmit="return confirmCancel()">
-          @csrf
-          <input type="hidden" name="id" value="{{ $reservation->id }}">
-          <td><button class="main__btn">キャンセル</button></td>
-        </form>
+        <td>来場済</td>
         @endif
       </tr>
       @endforeach
