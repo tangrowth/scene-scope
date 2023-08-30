@@ -10,17 +10,19 @@
     <h2 class="container-title">{{$performance->title}}</h2>
     <a href="{{ route('company', ['id' => $performance->company->id]) }}">{{ $performance->company->name }}</a>
   </div>
-  @if($performance->img_url)
-  <img src="{{ $performance->img_url }}" alt="{{$performance->title}}">
-  @else
-  <img src="https://scene-scope.s3.ap-northeast-1.amazonaws.com/default.png">
-  @endif
+  <div class="pf__img">
+    @if($performance->img_url)
+    <img src="{{ $performance->img_url }}" alt="{{$performance->title}}">
+    @else
+    <img src="https://scene-scope.s3.ap-northeast-1.amazonaws.com/default.png">
+    @endif
+  </div>
 </div>
 <div class="container2">
   <div class="container3">
     <h3>あらすじ</h3>
     <p>{{$performance->description}}</p>
-    <table>
+    <table class="main__table">
       <tr>
         <th>会場</th>
         <td>{{ $performance->address }}</td>
@@ -45,45 +47,41 @@
       <form action="{{ route('performance.delete') }}" method="post" onsubmit="return confirm('本当に削除しますか？');">
         @csrf
         <input type="hidden" name="id" value="{{$performance->id}}">
-        <button>削除</button>
+        <button class="btn">削除</button>
       </form>
     </div>
     <div>
       <form action="{{ route('performance.edit') }}">
         @csrf
         <input type="hidden" name="id" value="{{$performance->id}}">
-        <button>編集</button>
+        <button class="btn">編集</button>
       </form>
     </div>
     <div>
       <form action="{{ route('date.edit') }}">
         @csrf
         <input type="hidden" name="id" value="{{$performance->id}}">
-        <button>公演日の変更</button>
+        <button class="btn">公演日の変更</button>
       </form>
     </div>
     @endcan
     @can('owner')
     @if($performance->company_id == Auth::user()->company->id)
-    <div>
+    <div class="button__list">
       <form action="{{ route('performance.delete') }}" method="post" onsubmit="return confirm('本当に削除しますか？');">
         @csrf
         <input type="hidden" name="id" value="{{$performance->id}}">
-        <button>削除</button>
+        <button class="btn">削除</button>
       </form>
-    </div>
-    <div>
       <form action="{{ route('performance.edit') }}">
         @csrf
         <input type="hidden" name="id" value="{{$performance->id}}">
-        <button>編集</button>
+        <button class="btn">編集</button>
       </form>
-    </div>
-    <div>
       <form action="{{ route('date.edit') }}">
         @csrf
         <input type="hidden" name="id" value="{{$performance->id}}">
-        <button>公演日の変更</button>
+        <button class="btn">公演日の変更</button>
       </form>
     </div>
     @endif
@@ -99,7 +97,7 @@
     @endif
     <form action="{{ route('reserve.confirm') }}" method="POST">
       @csrf
-      <table>
+      <table class="main__table">
         <tr>
           <th>申込み人数</th>
           <td><select name="number">
@@ -144,7 +142,7 @@
     </script>
     @if($reservations->count() > 0)
     <h3 style="padding-top: 20px;">予約内容</h3>
-    <table>
+    <table class="main__table">
       @foreach($reservations as $reservation)
       <tr>
         <td>{{ $reservation->date->start_date->format('Y/m/d H:i') }}</td>
@@ -156,7 +154,7 @@
           <form action="{{ route('reserve.cancel') }}" method="post" onsubmit="return confirmCancel()">
             @csrf
             <input type="hidden" name="id" value="{{ $reservation->id }}">
-            <td><button class="main__btn">キャンセル</button></td>
+            <td><button class="btn">キャンセル</button></td>
           </form>
           @endif
         @else

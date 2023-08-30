@@ -6,7 +6,7 @@
 @section('main')
 <div class="container">
   <h2 class="container-title">入場QRコード</h2>
-  <table>
+  <table class="">
     <tr>
       <th></th>
       <th>予約者名</th>

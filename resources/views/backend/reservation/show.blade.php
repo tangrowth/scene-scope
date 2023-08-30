@@ -9,11 +9,11 @@
   <h2 class="container-title">{{ $date->start_date->format('Y/m/d H:i') }}の予約</h2>
   <div class="">
     <form action="{{ route('reserve.search', ['id' => $date->id]) }}" method="get">
-      <input type="text" name="input">
-      <button>検索</button>
+      <input type="text" name="input" class="search__input">
+      <button class="btn">検索</button>
     </form>
   </div>
-  <table>
+  <table class="reserve__list">
     <tr>
       <th></th>
       <th>予約者</th>
@@ -31,7 +31,7 @@
         @else
         <form action="{{ route('entry', ['id' => $reservation->id]) }}" method="post">
           @csrf
-          <button>入場</button>
+          <button class="reserve__btn">入場</button>
         </form>
         @endif
       </td>
@@ -47,7 +47,7 @@
         <form action="{{ route('reserve.delete') }}" method="post" onsubmit="return confirm('本当に削除しますか？');">
           @csrf
           <input type="hidden" value="{{ $reservation->id }}" name="id">
-          <button>キャンセル</button>
+          <button class="btn">キャンセル</button>
         </form>
       </td>
     </tr>

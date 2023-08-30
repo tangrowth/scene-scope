@@ -17,7 +17,7 @@ class ReservationFactory extends Factory
     {
         return [
             'number' => $this->faker->numberBetween(1, 4),
-            'date_id' => 14,
+            'date_id' => 56,
             'user_id' => User::inRandomOrder()->first()->id,
             'is_canceled' =>$this->faker->boolean,
             'is_used' => $this->faker->boolean,

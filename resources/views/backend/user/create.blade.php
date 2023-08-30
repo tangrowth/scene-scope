@@ -14,7 +14,7 @@
       <li>{{ $error }}</li>
       @endforeach
     </ul>
-    <table>
+    <table class="main__table">
       <tr>
         <th>劇団名</th>
         <td><input type="text" name="name" placeholder="" value="{{ old('name') }}"></td>
@@ -32,7 +32,7 @@
         <td><input type="password" name="password_confirmation" placeholder="同じパスワードを入力してください"></td>
       </tr>
     </table>
-    <button>劇団作成に進む</button>
+    <button class="btn">劇団作成に進む</button>
   </form>
 </div>
 @endsection

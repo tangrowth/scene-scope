@@ -11,7 +11,6 @@ use App\Models\Performance;
 use Illuminate\Support\Facades\Auth;
 use InterventionImage;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 
 
 class CompanyController extends Controller
@@ -21,7 +20,8 @@ class CompanyController extends Controller
         $company = Company::find($id);
         $performances = Performance::where('company_id', $id)->latest()->get();
         $favorite = Favorite::where('user_id', Auth::id())->where('company_id', $id)->first();
-        return view('frontend.company.show', compact('company', 'performances', 'favorite'));
+        $user_id = Auth::id();
+        return view('frontend.company.show', compact('company', 'performances', 'favorite','user_id'));
     }
 
     public function all()
@@ -71,7 +71,7 @@ class CompanyController extends Controller
         }else{
             if ($request->has('img_url')) {
                 $imagePath = public_path($request->input('img_url'));
-                $uploadedImagePath = 'copmany/' . time() . '.png';
+                $uploadedImagePath = 'company/' . time() . '.png';
                 Storage::disk('s3')->put($uploadedImagePath, file_get_contents($imagePath));
                 if (file_exists($imagePath)) {
                     unlink($imagePath);
@@ -118,9 +118,33 @@ class CompanyController extends Controller
 
     public function update(CompanyRequest $request)
     {
-        $form = $request->all();
-        unset($form['_token']);
-        Company::find($request->id)->update($form);
-        return redirect('/company/' . $request->id);
+        $company = Company::find($request->id);
+        if ($request->hasFile('img_url')) {
+            $uploadedImage = $request->file('img_url');
+            $resizedImage = InterventionImage::make($uploadedImage)
+            ->orientate()
+            ->fit(900, 600, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
+            $uploadedImagePath = 'company/' . time() . '.' . $uploadedImage->getClientOriginalExtension();
+            Storage::disk('s3')->put($uploadedImagePath, $resizedImage->stream());
+            if ($company->img_url) {
+                Storage::disk('s3')->delete(basename($company->img_url));
+            }
+            $s3BucketUrl = rtrim(Storage::disk('s3')->url('/'), '/');
+            $s3BucketUrl = rtrim(Storage::disk('s3')->url('/'), '/');
+            $img_url = $s3BucketUrl . '/' . $uploadedImagePath;
+        } else {
+            $img_url = $company->img_url;
+        }
+        $requestDate = [
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'web_site_url' => $request->input('web_site_url'),
+            'img_url' => $img_url,
+        ];
+        $company->update($requestDate);
+        return redirect()->route('company', ['id'=>$request->id]);
     }
 }

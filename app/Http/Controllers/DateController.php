@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\DateRequest;
+use App\Http\Requests\EditDateRequest;
 use App\Http\Requests\PerformanceRequest;
 use App\Models\Date;
 use App\Models\Performance;
@@ -23,7 +25,7 @@ class DateController extends Controller
         return view('backend.performance.date', compact('performance', 'dates'));
     }
 
-    public function update(Request $request)
+    public function update(EditDateRequest $request)
     {
         $form = $request->only(['capacity']);
         Date::find($request->id)->update($form);
@@ -36,7 +38,7 @@ class DateController extends Controller
         return redirect()->back();
     }
 
-    public function add(Request $request)
+    public function add(DateRequest $request)
     {
         $form = $request->all();
         Date::create($form);

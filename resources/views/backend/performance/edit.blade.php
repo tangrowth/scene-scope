@@ -6,9 +6,9 @@
 @section('main')
 <div class="container">
   <h2 class="container-title">公演情報変更</h2>
-  <form action="{{ route('performance.update') }}" method="post">
+  <form action="{{ route('performance.update') }}" method="post" enctype="multipart/form-data">
     @csrf
-    <table>
+    <table class="main__table create__table">
       <input type="hidden" name="id" value="{{$performance->id}}">
       <tr>
         <th>公演名</th>
@@ -32,8 +32,12 @@
         <th>公式サイト</th>
         <td><input type="text" name="web_site_url" value="{{$performance->web_site_url}}"></td>
       </tr>
+      <tr>
+        <th>画像</th>
+        <td><input type="file" name="img_url"></td>
+      </tr>
     </table>
-    <input type="submit" value="更新する">
+    <input type="submit" value="更新する" class="btn">
   </form>
 </div>
 @endsection

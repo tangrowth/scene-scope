@@ -13,7 +13,7 @@
   </ul>
   <form action="{{ route('admin.confirm') }}" method="post" enctype="multipart/form-data">
     @csrf
-    <table>
+    <table class="main__table">
       <tr>
         <th>劇団名</th>
         <td><input type="name" value="{{ $user['name'] }}" name="name" readonly></td>
@@ -33,7 +33,7 @@
     </table>
     <input type="hidden" name="email" value="{{ $user['email'] }}">
     <input type="hidden" name="password" value="{{ $user['password'] }}">
-    <button>確認画面に進む</button>
+    <button class="btn">確認画面に進む</button>
   </form>
 </div>
 @endsection

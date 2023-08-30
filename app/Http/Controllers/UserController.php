@@ -29,7 +29,7 @@ class UserController extends Controller
         $user = Auth::user();
         $company = Company::where('user_id', $user->id)->first();
         $performances = Performance::orderBy('created_at', 'desc')->where('company_id', $company->id)->get();
-        return view('backend.index', compact('performances'));
+        return view('backend.index', compact('performances', 'company'));
     }
 
     public function admin(){

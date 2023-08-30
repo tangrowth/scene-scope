@@ -165,7 +165,34 @@ class PerformanceController extends Controller
 
     public function update(PerformanceEditRequest $request)
     {
-        $form = $request->all();
+        $performance = Performance::find($request->id);
+        if ($request->hasFile('img_url')) {
+            $uploadedImage = $request->file('img_url');
+            $resizedImage = InterventionImage::make($uploadedImage)
+                ->orientate()
+                ->fit(900, 600, function ($constraint) {
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                });
+            $uploadedImagePath = 'performance/' . time() . '.' . $uploadedImage->getClientOriginalExtension();
+            Storage::disk('s3')->put($uploadedImagePath, $resizedImage->stream());
+            if ($performance->img_url) {
+                Storage::disk('s3')->delete(basename($performance->img_url));
+            }
+            $s3BucketUrl = rtrim(Storage::disk('s3')->url('/'), '/');
+            $s3BucketUrl = rtrim(Storage::disk('s3')->url('/'), '/');
+            $img_url = $s3BucketUrl . '/' . $uploadedImagePath;
+        } else {
+            $img_url = $performance->img_url;
+        }
+        $form = [
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'address' => $request->input('address'),
+            'venue' => $request->input('venue'),
+            'web_site_url' => $request->input('web_site_url'),
+            'img_url' => $img_url,
+        ];
         Performance::find($request->id)->update($form);
         return redirect('/performance/' . $request->id);
     }

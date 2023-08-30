@@ -8,7 +8,7 @@
   <h2 class="container-title">情報の確認</h2>
   <form action="{{ route('admin.company') }}" method="post">
     @csrf
-    <table>
+    <table class="main__table">
       <tr>
         <th>画像</th>
         <td>
@@ -41,8 +41,8 @@
         <td><input type="text" name="password" value="{{ $inputs['password'] }}" readonly></td>
       </tr>
     </table>
-    <input type="submit" value="キャンセル" name="action">
-    <input type="submit" value="劇団を作成する" name="action">
+    <input type="submit" value="キャンセル" name="action" class="btn">
+    <input type="submit" value="劇団を作成する" name="action" class="btn">
   </form>
 </div>
 @endsection

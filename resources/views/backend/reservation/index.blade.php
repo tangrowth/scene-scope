@@ -6,7 +6,7 @@
 @section('main')
 <div class="container">
   <h2 class="container-title">予約情報</h2>
-  <table>
+  <table class="main__table">
     <tr>
       <th>公演名</th>
       <th></th>

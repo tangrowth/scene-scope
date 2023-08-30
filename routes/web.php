@@ -54,7 +54,7 @@ Route::middleware(['verified'])->group(function () {
       Route::get('/reserve', [ReservationController::class, 'index'])->name('reserve.menu');
 
       Route::get('/entry/QR/{id}', [QrCodeController::class, 'showReserve'])->name('Qr.showReserve');
-      Route::get('/entry/{id}', [QrCodeController::class, 'entry'])->name('entry');
+      Route::post('/entry/{id}', [QrCodeController::class, 'entry'])->name('entry');
     });
     
     Route::middleware(['can:owner'])->group(function () {
