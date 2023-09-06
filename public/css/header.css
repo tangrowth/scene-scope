@@ -1,6 +1,5 @@
 .header {
   background-color: #ccc;
-  height: 30px;
   display: flex;
   justify-content: space-between;
   padding: 25px;
@@ -107,4 +106,43 @@ a {
 
 .company-full-text {
   display: none;
+}
+
+@media screen and (max-width : 480px) {
+  .header {
+    padding: 15px;
+  }
+
+  .header__title a {
+    font-size: 20px;
+  }
+
+  .menu-btn {
+    display: inline-block;
+    width: 22px;
+    height: 20px;
+    right: 10px;
+  }
+
+  .menu__line--top,
+  .menu__line--middle,
+  .menu__line--bottom {
+    height: 2px;
+  }
+
+  .menu__line--middle {
+    top: 9px;
+  }
+
+  p{
+    line-height:normal
+  }
+
+  .menu-nav a{
+    font-size: medium;
+  }
+
+  .menu-nav ul li {
+    margin-top: 30px;
+  }
 }

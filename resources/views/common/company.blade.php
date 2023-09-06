@@ -7,11 +7,9 @@
         @if($company->img_url)
         <img src="{{ $company->img_url }}" alt="">
         @else
-        <img src="{{ asset('storage/images/default.png') }}" alt="">
+        <img src="https://scene-scope.s3.ap-northeast-1.amazonaws.com/default.png">
         @endif
-        <span>
-          <h3>{{ $company->name }}</h3>
-        </span>
+        <h3>{{ $company->name }}</h3>
       </div>
     </a>
   </div>

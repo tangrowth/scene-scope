@@ -8,6 +8,7 @@ use App\Http\Controllers\PerformanceController;
 use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\UserController;
+use App\Models\Reservation;
 
 Route::get('/', [PerformanceController::class, 'index'])->name('home');
 Route::get('/performance/all', [PerformanceController::class, 'all'])->name('performance.all');
@@ -24,6 +25,7 @@ Route::middleware(['verified'])->group(function () {
   Route::post('/reservation/delete', [ReservationController::class, 'delete'])->name('reserve.delete');
   Route::post('/reservation', [ReservationController::class, 'store'])->name('reserve.store');
 
+  Route::get('/reserve/show', [ReservationController::class, 'details'])->name('reserve.details');
   Route::get('/QR/{id}', [QrCodeController::class, 'showQrCode'])->name('Qr.showQrCode');
 
   Route::get('/mypage', [UserController::class, 'index'])->name('mypage');

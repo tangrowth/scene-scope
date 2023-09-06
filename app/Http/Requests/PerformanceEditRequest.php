@@ -14,8 +14,8 @@ class PerformanceEditRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required',
-            'description' => 'required',
+            'title' => 'required|max:21',
+            'description' => 'required|max:300',
             'address' => 'required',
             'venue' => 'required',
             'web_site_url' => 'nullable|url',
@@ -31,7 +31,9 @@ class PerformanceEditRequest extends FormRequest
     {
         return [
             'title.required' => 'タイトルを入力してください。',
-            'description.required' => '説明を入力してください。',
+            'title.max' =>'タイトルは21字以内で入力してください。',
+            'description.required' => 'あらすじを入力してください。',
+            'description|max' =>'あらすじは300字以内で入力してください。',
             'address.required' => '住所を入力してください。',
             'venue.required' => '会場を入力してください。',
             'web_site_url.url' => '公式サイトURLは正しいURL形式で入力してください。',

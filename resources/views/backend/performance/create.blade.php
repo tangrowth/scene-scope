@@ -52,7 +52,11 @@
         </tr>
       </tbody>
       <tr>
-        <th>画像</th>
+        <th>トップ画像</th>
+        <td colspan="3"><input type="file" name="top_img_url"></td>
+      </tr>
+      <tr>
+        <th>チケット画像</th>
         <td colspan="3"><input type="file" name="img_url"></td>
       </tr>
     </table>

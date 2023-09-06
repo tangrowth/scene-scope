@@ -12,7 +12,7 @@
   </div>
   <div class="pf__img">
     @if($performance->img_url)
-    <img src="{{ $performance->img_url }}" alt="{{$performance->title}}">
+    <img src="{{ $performance->top_img_url }}" alt="{{$performance->title}}">
     @else
     <img src="https://scene-scope.s3.ap-northeast-1.amazonaws.com/default.png">
     @endif
@@ -111,7 +111,7 @@
           <th>公演日</th>
           <td>
             <select name="date_id" id="dateSelect">
-              @foreach($performance->dates as $date)
+              @foreach($dates as $date)
               <option value="{{$date->id}}" data-capacity="{{ $date->capacity }}" data-reserved="{{ $date->reserved }}">{{$date->start_date->format('Y/m/d H:i')}}</option>
               @endforeach
             </select>
@@ -123,40 +123,33 @@
         </tr>
       </table>
       <input type="hidden" name="performance_id" value="{{$performance->id}}">
-      <input type="submit" class="main__btn" value="予約する">
+      <input type="submit" class="btn" value="予約する">
     </form>
-    <script>
-      document.getElementById("dateSelect").addEventListener("change", function() {
-        var selectedOption = this.options[this.selectedIndex];
-        var capacity = parseInt(selectedOption.getAttribute("data-capacity"));
-        var reserved = parseInt(selectedOption.getAttribute("data-reserved"));
-        var remainingSeats = capacity - reserved;
-
-        var remainingSeatsDiv = document.getElementById("remainingSeats");
-        remainingSeatsDiv.textContent = remainingSeats;
-      });
-
-      function confirmCancel() {
-        return window.confirm('予約をキャンセルしますか？');
-      }
-    </script>
     @if($reservations->count() > 0)
     <h3 style="padding-top: 20px;">予約内容</h3>
     <table class="main__table">
       @foreach($reservations as $reservation)
       <tr>
-        <td>{{ $reservation->date->start_date->format('Y/m/d H:i') }}</td>
-        <td>{{ $reservation->number }}人</td>
-        @if($reservation->is_used === false)
-          @if($reservation->is_canceled === true || $reservation->is_canceled === 1)
-          <td>キャンセル申請中</td>
-          @else
-          <form action="{{ route('reserve.cancel') }}" method="post" onsubmit="return confirmCancel()">
+        <td>
+          <form action="{{ route('reserve.details') }}" method="get">
             @csrf
-            <input type="hidden" name="id" value="{{ $reservation->id }}">
-            <td><button class="btn">キャンセル</button></td>
+            <input type="hidden" value="{{ $reservation->id }}" name="id">
+            <button class="reserve-pf-button">
+              {{ $reservation->date->start_date->format('Y/m/d H:i') }}
+            </button>
           </form>
-          @endif
+        </td>
+        <td>{{ $reservation->number }}人</td>
+        @if($reservation->is_used === 0)
+        @if($reservation->is_canceled === 1)
+        <td>キャンセル申請中</td>
+        @else
+        <form action="{{ route('reserve.cancel') }}" method="post" onsubmit="return confirmCancel()">
+          @csrf
+          <input type="hidden" name="id" value="{{ $reservation->id }}">
+          <td><button class="btn">キャンセル</button></td>
+        </form>
+        @endif
         @else
         <td>来場済</td>
         @endif
@@ -167,9 +160,24 @@
     @endauth
     @guest
     <p class="container-content">予約にはログインが必要です</p>
-    <a href="../login">ログインはこちら</a>
-    <a href="../register">新規登録はこちら</a>
+    <a href="../login" class="btn">ログイン</a>
+    <a href="../register" class="btn">新規登録</a>
     @endguest
   </div>
 </div>
+<script>
+  document.getElementById("dateSelect").addEventListener("change", function() {
+    var selectedOption = this.options[this.selectedIndex];
+    var capacity = parseInt(selectedOption.getAttribute("data-capacity"));
+    var reserved = parseInt(selectedOption.getAttribute("data-reserved"));
+    var remainingSeats = capacity - reserved;
+
+    var remainingSeatsDiv = document.getElementById("remainingSeats");
+    remainingSeatsDiv.textContent = remainingSeats;
+  });
+
+  function confirmCancel() {
+    return window.confirm('予約をキャンセルしますか？');
+  }
+</script>
 @endsection

@@ -7,11 +7,13 @@
         @if($performance->img_url)
         <img src="{{ $performance->img_url }}" alt="">
         @else
-        <img src="{{ asset('storage/images/default.png') }}" alt="">
+        <img src="https://scene-scope.s3.ap-northeast-1.amazonaws.com/default.png">
         @endif
         <span>
-          <h3>{{ $performance->title }}</h3>
-          <p>{{$performance->Company->name}}</p>
+          <div class="pf__card-content">
+            <h3>{{ $performance->title }}</h3>
+            <p>{{$performance->Company->name}}</p>
+          </div>
         </span>
       </div>
       <?php

@@ -42,7 +42,7 @@ class PerformanceController extends Controller
     public function show($id)
     {
         $performance = Performance::find($id);
-        $dates = Date::where('performance_id', $id)->latest()->get();
+        $dates = Date::where('performance_id', $id)->orderBy('start_date')->get();
         if (Auth::check()) {
             $reservations = Reservation::where('user_id', Auth::id())
             ->whereHas('date', function ($query) use ($id) {
@@ -73,9 +73,16 @@ class PerformanceController extends Controller
                 $constraint->upsize();
             });
             $filePath = public_path('storage/temporary');
-            $filename = time() . '.png';
+            $filename = time() . '1.png';
             $image->save($filePath . '/' . $filename);
             $inputs['img_url'] = 'storage/temporary/' . $filename;
+        }
+        if($request->hasFile('top_img_url')){
+            $file = $request->file('top_img_url');
+            $filePath = public_path('storage/temporary');
+            $filename = time() . '2.png';
+            $file->move($filePath, $filename);
+            $inputs['top_img_url'] = 'storage/temporary/' . $filename;
         }
         $dates['date'] = $request->input('dates');
         $capacities = $request->input('capacities');
@@ -107,10 +114,16 @@ class PerformanceController extends Controller
         ];
         $action = $request->input('action');
         if ($action !== '公演を作成する') {
+            if ($request->has('top_img_url')) {
+                $temporaryImagePath2 = public_path($request->input('top_img_url'));
+                if (file_exists($temporaryImagePath2)) {
+                    unlink($temporaryImagePath2);
+                }
+            }
             if ($request->has('img_url')) {
-                $temporaryImagePath = public_path($request->input('img_url'));
-                if (file_exists($temporaryImagePath)) {
-                    unlink($temporaryImagePath);
+                $temporaryImagePath1 = public_path($request->input('img_url'));
+                if (file_exists($temporaryImagePath1)) {
+                    unlink($temporaryImagePath1);
                 }
             }
             return redirect()->route('performance.create');
@@ -127,6 +140,19 @@ class PerformanceController extends Controller
                 $form['img_url'] = $s3BucketUrl . '/' . $uploadedImagePath;
             } else {
                 $form['img_url'] = null;
+            }
+            if ($request->has('top_img_url')) {
+                $topImagePath = public_path($request->input('top_img_url'));
+                $uploadedTopImagePath = 'performance/top/' . time() . '.png';
+                Storage::disk('s3')->put($uploadedTopImagePath, file_get_contents($topImagePath));
+                if (file_exists($topImagePath)) {
+                    unlink($topImagePath);
+                }
+                $s3BucketUrl = Storage::disk('s3')->url('/');
+                $s3BucketUrl = rtrim(Storage::disk('s3')->url('/'), '/');
+                $form['top_img_url'] = $s3BucketUrl . '/' . $uploadedTopImagePath;
+            } else {
+                $form['top_img_url'] = null;
             }
             $performance = Performance::create($form);
             $dates = $request->input('dates');

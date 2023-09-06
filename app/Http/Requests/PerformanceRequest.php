@@ -26,8 +26,8 @@ class PerformanceRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required',
-            'description' => 'required',
+            'title' => 'required|max:21',
+            'description' => 'required|max:300',
             'zip11' => 'nullable|digits:7',
             'addr11' => 'required',
             'venue' => 'required',
@@ -46,7 +46,9 @@ class PerformanceRequest extends FormRequest
     {
         return [
             'title.required' => 'タイトルを入力してください。',
+            'title.max' => 'タイトルは21字以内で入力してください。',
             'description.required' => '説明を入力してください。',
+            'description.max' => '説明は300字以内で入力してください。',
             'zip11.digits' => '郵便番号は7桁の数字で入力してください。',
             'addr11.required' => '住所を入力してください。',
             'venue.required' => '会場を入力してください。',

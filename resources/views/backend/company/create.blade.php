@@ -13,7 +13,7 @@
   </ul>
   <form action="{{ route('admin.confirm') }}" method="post" enctype="multipart/form-data">
     @csrf
-    <table class="main__table">
+    <table class="main__table create__table">
       <tr>
         <th>劇団名</th>
         <td><input type="name" value="{{ $user['name'] }}" name="name" readonly></td>

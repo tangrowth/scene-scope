@@ -6,7 +6,7 @@
 @section('main')
 <div class="container">
   <h3 class="container-title">登録情報</h3>
-  <table class="detail-table">
+  <table class="main__table">
     <tr>
       <th>名前</th>
       <td>{{ $user->name }}</td>
@@ -16,8 +16,8 @@
       <td>{{ $user->email }}</td>
     </tr>
   </table>
-  <a href="{{ route('mypage.edit') }}" class="main__btn">編集</a>
-  <a href="{{ route('password.edit') }}" class="main__btn">パスワード編集</a>
+  <a href="{{ route('mypage.edit') }}" class="btn">編集</a>
+  <a href="{{ route('password.edit') }}" class="btn">パスワード編集</a>
 </div>
 <div class="container">
   <h2 class="container-title">チケット</h2>

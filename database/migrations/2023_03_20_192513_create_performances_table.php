@@ -15,13 +15,14 @@ class CreatePerformancesTable extends Migration
     {
         Schema::create('performances', function (Blueprint $table) {
             $table->id();
-            $table->string('img_url')->nullable();
-            $table->string('title');
-            $table->string('description');
+            $table->string('img_url')->default('https://scene-scope.s3.ap-northeast-1.amazonaws.com/default.png');
+            $table->string('top_img_url')->default('https://scene-scope.s3.ap-northeast-1.amazonaws.com/default.png');
+            $table->string('title', 21);
+            $table->string('description', 300);
             $table->string('zip')->nullable();
             $table->string('address');
             $table->string('venue');
-            $table->string('web_site_url')->nulla;
+            $table->string('web_site_url')->nullable();
             $table->unsignedBigInteger('company_id');
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('CASCADE');
             $table->timestamps();

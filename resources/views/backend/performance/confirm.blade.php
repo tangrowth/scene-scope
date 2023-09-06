@@ -14,7 +14,18 @@
         <td colspan="3"><input type="text" name="title" value="{{ $inputs['title'] }}" readonly></td>
       </tr>
       <tr>
-        <th>画像</th>
+        <th>トップ画像</th>
+        <td colspan="3">
+          @if (isset($inputs['top_img_url']))
+          <img src="{{ asset($inputs['top_img_url']) }}" style="height: 300px">
+          <input type="hidden" name="top_img_url" value="{{ $inputs['top_img_url'] }}">
+          @else
+          <p>画像はありません</p>
+          @endif
+        </td>
+      </tr>
+      <tr>
+        <th>チケット画像</th>
         <td colspan="3">
           @if (isset($inputs['img_url']))
           <img src="{{ asset($inputs['img_url']) }}" style="width: 300px">

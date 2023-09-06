@@ -32,6 +32,13 @@ main {
   background-color: #000;
   padding: 10px;
   border-radius: 5px;
+  transition: .3s;
+
+}
+
+.btn:hover {
+  background-color: #fff;
+  color: #000;
 }
 
 .container {
@@ -54,9 +61,8 @@ main {
 .container-cards {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 30px;
   width: 900px;
-  margin: 0 auto;
+  margin: 0 auto 10px;
 }
 
 .pf__card {
@@ -65,8 +71,7 @@ main {
   border: #ccc 1px solid;
   border-radius: 10px;
   box-shadow: 0 5px 0 #ccc;
-  margin-bottom: 30px;
-  margin-right: 20px;
+  margin: 0 10px 20px;
 }
 
 .pf__card:hover {
@@ -77,12 +82,10 @@ main {
 
 .cp__card {
   width: 200px;
-  height: 150px;
   border: #ccc 1px solid;
   border-radius: 10px;
   box-shadow: 0 5px 0 #ccc;
-  margin-bottom: 30px;
-  margin-right: 20px;
+  margin: 0 10px 20px;
 }
 
 .cp__card:hover {
@@ -102,9 +105,14 @@ main {
 }
 
 .pf__card-main img,
-.cp__card-main img {
+.cp__card-main img{
   width: 100%;
   border-radius: 10px 10px 0 0;
+}
+.cp__card-main h3 {
+  margin: 10px;
+  margin-bottom: 10px;
+  font-size: 20px;
 }
 
 .pf__card-main span,
@@ -120,11 +128,18 @@ main {
   text-align: center;
 }
 
-.pf__card-main h3,
-.cp__card-main h3 {
-  padding-top: 30px;
+.pf__card-main h3 {
   margin-bottom: 10px;
   font-size: 20px;
+}
+
+.pf__card-content{
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 .pf__card-date {
@@ -134,16 +149,19 @@ main {
 
 .pf__img {
   width: 80%;
-  margin: 20px auto 0;
   max-width: 800px;
+  height: auto;
+  max-width: 400px;
+  margin: 20px auto 0;
 }
 .pf__img img {
   width: 100%;
+  height: 100%;
 }
 
 .main__btn {
-  border: #ccc 2px solid;
-  color: #ccc;
+  border: #000 2px solid;
+  color: #000;
   background-color: #fff;
   padding: 10px;
   border-radius: 5px;
@@ -152,7 +170,7 @@ main {
 }
 
 .main__btn:hover {
-  background-color: #ccc;
+  background-color: #000;
   color: #fff;
 }
 
@@ -177,6 +195,8 @@ main {
   border-radius: 10px;
   padding: 20px;
   text-align: center;
+  white-space: normal;
+  overflow-wrap: break-word;
 }
 .container3 p {
   text-align: left;
@@ -191,7 +211,8 @@ main {
 
 .container-content {
   text-align: center;
-  margin: auto;
+  width: 30%;
+  margin: 0 35% 20px;
 }
 
 .main__table {
@@ -219,7 +240,7 @@ main {
 
 .container-cp-title {
   color: #000;
-  padding: 0.5em 0;
+  padding: 5px 0;
   border-top: solid 2px #000;
   border-bottom: solid 2px #000;
   margin-bottom: 20px;
@@ -239,8 +260,8 @@ main {
 }
 
 .heart-btn img {
-  width: 32px;
-  height: 32px;
+  width: 20px;
+  height: 20px;
 }
 
 .reserve {
@@ -279,39 +300,62 @@ main {
   margin-bottom: 10px;
 }
 
+.reserve-card-content form {
+  width: 100%;
+  height: 100%;
+}
+
+.reserve-card-button {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.container h3 {
+  margin-bottom: 10px;
+}
+
+.reserve-card-button p {
+  font-size: larger;
+}
+
+.reserve-card-button h4 {
+  font-size: large;
+}
+
+.reservation-title {
+  font-size: large;
+  margin-top: 20px;
+}
+.reserve-pf-button {
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: medium;
+}
+
 .card-buttons {
   display: flex;
   justify-content: center;
   text-align: center;
 }
-
 .card-button {
-  border: #ccc 2px solid;
-  color: #ccc;
+  border: #000 2px solid;
+  color: #000;
   background-color: #fff;
   padding: 10px;
   border-radius: 5px;
   margin: 20px 10px 0 10px;
 }
-
 .owner__cp {
   width: 90%;
   margin: 0 5%;
-  display: flex;
-  border-radius: 10px;
-  border: #ccc 1px solid;
-  align-items: stretch;
-}
-.owner__cp-img {
-  width: 50%;
-}
-.owner__cp-img img {
-  width: 100%;
-  border-radius: 10px 0 0 10px;
 }
 .owner__cp-text {
   width: 50%;
-  height: 100%;
+  margin: 0 auto;
 }
 .owner__cp-text *{
   margin: 20px;
@@ -331,9 +375,9 @@ main {
 
 .button__list button {
   width: 110px;
-  border: #111 2px solid;
+  border: #000 2px solid;
   color: #fff;
-  background-color: #111;
+  background-color: #000;
   padding: 10px;
   border-radius: 5px;
   margin-top: 20px;
@@ -349,16 +393,15 @@ main {
   border-bottom: none;
 }
 .reserve__btn {
-  border: #ccc 2px solid;
-  color: #ccc;
+  border: #000 2px solid;
+  color: #000;
   background-color: #fff;
   padding: 10px;
   border-radius: 5px;
   transition: .5s;
 }
-
 .reserve__btn:hover {
-  background-color: #ccc;
+  background-color: #000;
   color: #fff;
 }
 .reserve__list {
@@ -368,14 +411,158 @@ main {
 .reserve__list tr {
   border-bottom: 1px solid #ccc;
 }
-
 .reserve__list th,
 .reserve__list td {
   padding: 10px;
 }
-
 .reserve__list th:first-child,
 .reserve__list td:first-child {
   width: 100px;
   text-align: center;
+}
+
+.reserve-img {
+  height: 300px;
+}
+
+.reserve-img img{
+height: 100%;
+}
+
+@media screen and (max-width : 480px) {
+  .container-title {
+    width: 50%;
+  }
+
+.container-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto;
+  overflow-x: auto;
+  width: auto;
+}
+
+  .pf__card,
+  .cp__card {
+    width: 120px;
+    height: auto;
+    padding-bottom: 10px;
+  }
+
+  .pf__card-main span,
+  .cp__card-main span {
+    top: 5px;
+    left: 5px;
+    width: 110px;
+    height: 70px;
+  }
+  .cp__card-main h3 {
+    font-size: small;
+  }
+  .pf__card-main h3 {
+    padding-top: 10px;
+    margin-bottom: 0;
+    font-size: small;
+  }
+  .pf__card-main p{
+    font-size: x-small;
+  }
+  .pf__card-date p{
+    font-size: smaller;
+  }
+  .main__btn {
+    padding: 5px;
+  }
+  .container2 {
+    display: block;
+  }
+  .container3 {
+    width: 90%;
+    margin-bottom: 20px;
+  }
+
+  .container-content {
+    width: auto;
+    margin: 0 0 20px;
+  }
+
+  .main__table th,
+  .main__table td {
+    font-size: smaller;
+    width: auto;
+  }
+
+  .reserve-card {
+    width: 300px;
+    height: 100px;
+    margin: 0 0 10px;
+  }
+
+  .owner__cp-text *{
+    font-size: smaller;
+  }
+
+  .owner__cp-img {
+    width: 90%;
+  }
+  .owner__cp-img img{
+    width: 100%;
+  }
+
+  .owner__cp-text {
+    width: 100%;
+  }
+
+  .reserve {
+    width: 300px;
+  }
+
+  .container-cp-title{
+    width: 50%;
+  }
+
+  .button__list button{
+    width: auto;
+    padding: 5px;
+  }
+  .reserve-card-content {
+    font-size: smaller;
+    margin: 0;
+  }
+
+  .reserve-card-content h4 {
+    margin-bottom: 0;
+  }
+  
+  .reserve-card-button {
+    margin: 0;
+  }
+  .reserve-card-button p {
+    font-size: small;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  
+  .reserve-card-button h4 {
+    font-size: 15px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  .reserve-img {
+    height: 150px;
+  }
+
+  .card-button {
+    padding: 5px;
+    font-size: smaller;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
 }

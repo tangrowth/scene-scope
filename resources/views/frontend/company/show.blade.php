@@ -10,19 +10,19 @@
     <form action="{{ route('favorite.on') }}" method="post">
       @csrf
       <input type="hidden" value="{{ $company->id }}" name="company_id">
-      <button class="heart-btn"><img src="{{ asset('storage/images/heart_on.png') }}" alt=""></button>
+      <button class="heart-btn"><img src="https://scene-scope.s3.ap-northeast-1.amazonaws.com/heart_on.png"></button>
     </form>
     @else
     <form action="{{ route('favorite.off', ['id' => $favorite->id]) }}" method="post">
       @csrf
       <input type="hidden" value="{{ $company->id }}" name="company_id">
-      <button class="heart-btn"><img src="{{ asset('storage/images/heart_off.png') }}" alt=""></button>
+      <button class="heart-btn"><img src="https://scene-scope.s3.ap-northeast-1.amazonaws.com/heart_off.png"></button>
     </form>
     @endif
     {{ $company->name }}
   </h2>
   <div class="owner__cp">
-    <div class="owner__cp-img">
+    <div class="pf__img">
       @if($company->img_url)
       <img src="{{ asset($company->img_url) }}" alt="{{$company->title}}">
       @else

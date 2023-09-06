@@ -68,8 +68,8 @@ class ReservationController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user->admin){
-            $dates = Date::all()->latest()-> get();
+        if ($user->role == 2){
+            $dates = Date::latest()-> get();
         } else {
             $company_id = Company::where('user_id', $user->id) -> first() -> id;
             $performances = Performance::where('company_id', $company_id)-> get();
@@ -81,7 +81,7 @@ class ReservationController extends Controller
 
     public function show($id)
     {
-        $reservations = Reservation::where('date_id', $id)->get();
+        $reservations = Reservation::where('date_id', $id)->orderBy('is_used')->get();
         $date = Date::find($id);
         $input = '';
         return view('backend.reservation.show', compact('date', 'reservations', 'input'));
@@ -96,6 +96,12 @@ class ReservationController extends Controller
         })->get();
         $input = $request->input;
         return view('backend.reservation.show', compact('reservations', 'input', 'date'));
+    }
+
+    public function details(Request $request){
+        $reservation = Reservation::find($request->id);
+        $user = Auth::user();
+        return view ('frontend.reservation.show' , compact('reservation' , 'user'));
     }
 
 }

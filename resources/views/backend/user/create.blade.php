@@ -14,7 +14,7 @@
       <li>{{ $error }}</li>
       @endforeach
     </ul>
-    <table class="main__table">
+    <table class="main__table create__table">
       <tr>
         <th>劇団名</th>
         <td><input type="text" name="name" placeholder="" value="{{ old('name') }}"></td>

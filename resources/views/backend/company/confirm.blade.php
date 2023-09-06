@@ -8,7 +8,7 @@
   <h2 class="container-title">情報の確認</h2>
   <form action="{{ route('admin.company') }}" method="post">
     @csrf
-    <table class="main__table">
+    <table class="main__table create__table">
       <tr>
         <th>画像</th>
         <td>
