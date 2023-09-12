@@ -42,6 +42,7 @@
               </form>
             </li>
             @endauth
+            <li><a href="https://forms.gle/8u3djzcrQvio65tM7">お問い合わせ</a></li>
           </ul>
         </nav>
         <div class="menu-btn" id="menu">

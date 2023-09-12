@@ -11,7 +11,7 @@
     <form action="{{ route('reserve.details') }}" method="get" class="reserve-card-form">
       @csrf
       <input type="hidden" value="{{ $reservation->id }}" name="id">
-      <button type="submit" class="btn">
+      <button type="submit" class="reserve-card-button">
         <h4>{{ $reservation->date->performance->title }}</h4>
         <div>
           <p>{{$reservation->date->performance->company->name}}</p>

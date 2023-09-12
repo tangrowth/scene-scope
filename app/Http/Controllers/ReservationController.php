@@ -103,5 +103,4 @@ class ReservationController extends Controller
         $user = Auth::user();
         return view ('frontend.reservation.show' , compact('reservation' , 'user'));
     }
-
 }
