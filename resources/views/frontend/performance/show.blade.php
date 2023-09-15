@@ -1,7 +1,6 @@
 @extends('layouts.header')
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBa0Dhuh6lv0cF52ndkqDw0PNsdBpXvIvM&callback=initMap"></script>
 @endsection
 
 @section('main')
@@ -28,8 +27,18 @@
         <td>{{ $performance->address }}</td>
       </tr>
       <tr>
-        <th></th>
-        <td>{{$performance->venue}}</td>
+        <th class="pf__table">
+          @if(isset($performance->routing_guide))
+          <a href="{{ route('performance.map', ['id'=>$performance->id]) }}" class="map__btn btn">
+            <img src="https://scene-scope.s3.ap-northeast-1.amazonaws.com/map.png" alt="">
+          </a>
+          @elseif($performance->company->user_id == Auth::id())
+          <a href="{{ route('performance.map', ['id'=>$performance->id]) }}" class="map__btn btn">
+            <img src="https://scene-scope.s3.ap-northeast-1.amazonaws.com/map.png" alt="">
+          </a>
+          @endif
+        </th>
+        <td class="pf__table">{{$performance->venue}}</td>
       </tr>
       <tr>
         <th>公演日</th>
@@ -131,13 +140,9 @@
       @foreach($reservations as $reservation)
       <tr>
         <td>
-          <form action="{{ route('reserve.details') }}" method="get">
-            @csrf
-            <input type="hidden" value="{{ $reservation->id }}" name="id">
-            <button class="reserve-pf-button">
-              {{ $reservation->date->start_date->format('Y/m/d H:i') }}
-            </button>
-          </form>
+          <a href="{{ route('reserve.details', ['uuid'=>$reservation->uuid]) }}">
+            {{ $reservation->date->start_date->format('Y/m/d H:i') }}
+          </a>
         </td>
         <td>{{ $reservation->number }}人</td>
         @if($reservation->is_used === 0)

@@ -39,7 +39,6 @@
         @if($reservation->is_used == false)
         @if($reservation->is_canceled == false)
         <a href="{{ route('Qr.showQrCode', ['id'=>$reservation->id]) }}" class="btn">QR</a>
-        <a href="{{ route('reserve.map', ['id'=>$reservation->date->performance_id]) }}" class="btn">map</a>
         <form action="{{ route('reserve.cancel') }}" method="post" onsubmit="return confirmCancel()">
           @csrf
           <input type="hidden" name="id" value="{{ $reservation->id }}">

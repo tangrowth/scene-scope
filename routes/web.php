@@ -8,11 +8,13 @@ use App\Http\Controllers\PerformanceController;
 use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\UserController;
-use App\Models\Reservation;
 
 Route::get('/', [PerformanceController::class, 'index'])->name('home');
 Route::get('/performance/all', [PerformanceController::class, 'all'])->name('performance.all');
 Route::get('/performance/search', [PerformanceController::class, 'search'])->name('performance.search');
+Route::get('/performance/map/edit/{id}', [PerformanceController::class, 'mapEdit'])->name('performance.map.edit');
+Route::post('/performance/map/edit', [PerformanceController::class, 'mapUpdate'])->name('performance.map.update');
+Route::get('/performance/map/{id}', [PerformanceController::class, 'map'])->name('performance.map');
 Route::get('/performance/{id}', [PerformanceController::class, 'show'])->name('performance');
 Route::get('/company/all', [CompanyController::class, 'all'])->name('company.all');
 Route::get('/company/search', [CompanyController::class, 'search'])->name('company.search');
@@ -25,7 +27,7 @@ Route::middleware(['verified'])->group(function () {
   Route::post('/reservation/delete', [ReservationController::class, 'delete'])->name('reserve.delete');
   Route::post('/reservation', [ReservationController::class, 'store'])->name('reserve.store');
 
-  Route::get('/reserve/show', [ReservationController::class, 'details'])->name('reserve.details');
+  Route::get('/reserve/show/{uuid}', [ReservationController::class, 'details'])->name('reserve.details');
   Route::get('/QR/{id}', [QrCodeController::class, 'showQrCode'])->name('Qr.showQrCode');
 
   Route::get('/mypage', [UserController::class, 'index'])->name('mypage');

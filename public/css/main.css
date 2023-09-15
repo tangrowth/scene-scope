@@ -1,5 +1,7 @@
 main {
   padding: 10px 5%;
+  line-height: normal;
+
 }
 .create__table input {
   width: 90%;
@@ -17,6 +19,7 @@ main {
   border-radius: 3px;
   border: 2px solid #ddd; 
   box-sizing: border-box;
+  line-height: normal;
 }
 .search__input{
   padding: 10px 15px;
@@ -35,7 +38,6 @@ main {
   transition: .3s;
 
 }
-
 .btn:hover {
   background-color: #fff;
   color: #000;
@@ -73,7 +75,6 @@ main {
   box-shadow: 0 5px 0 #ccc;
   margin: 0 10px 20px;
 }
-
 .pf__card:hover {
   position: relative;
   top: 5px;
@@ -87,7 +88,6 @@ main {
   box-shadow: 0 5px 0 #ccc;
   margin: 0 10px 20px;
 }
-
 .cp__card:hover {
   position: relative;
   top: 5px;
@@ -157,21 +157,6 @@ main {
 .pf__img img {
   width: 100%;
   height: 100%;
-}
-
-.main__btn {
-  border: #000 2px solid;
-  color: #000;
-  background-color: #fff;
-  padding: 10px;
-  border-radius: 5px;
-  margin-top: 20px;
-  transition: .5s;
-}
-
-.main__btn:hover {
-  background-color: #000;
-  color: #fff;
 }
 
 .main__input {
@@ -280,6 +265,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #000;
 }
 
 .reserve-card-img {
@@ -370,11 +356,9 @@ main {
   display: flex;
   justify-content: center;
 }
-
 .button__list form {
   margin: 10px;
 }
-
 .button__list button {
   width: 110px;
   border: #000 2px solid;
@@ -391,21 +375,11 @@ main {
 .admin__menu li {
   margin-bottom: 10px;
 }
+
 .date__list tr {
   border-bottom: none;
 }
-.reserve__btn {
-  border: #000 2px solid;
-  color: #000;
-  background-color: #fff;
-  padding: 10px;
-  border-radius: 5px;
-  transition: .5s;
-}
-.reserve__btn:hover {
-  background-color: #000;
-  color: #fff;
-}
+
 .reserve__list {
   width: 100%;
   border-collapse: collapse;
@@ -426,9 +400,42 @@ main {
 .reserve-img {
   height: 300px;
 }
-
 .reserve-img img{
 height: 100%;
+}
+
+.map__btn {
+  padding: 8px;
+}
+.map__btn img{
+  width: 16px;
+  height: 16px;
+}
+.map__img {
+  width: 70%;
+  margin: auto;
+}
+.map__img img {
+  width: 100%;
+}
+
+.map__guide {
+  margin-top: 20px;
+  border-radius: 5px;
+  border: #ccc 2px solid;
+  padding: 20px;
+}
+
+.map_btns {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: 250px;
+  margin: 30px auto;
+}
+
+.map_btns a {
+  margin: 0 10px;
 }
 
 @media screen and (max-width : 480px) {
@@ -472,9 +479,6 @@ height: 100%;
   }
   .pf__card-date p{
     font-size: smaller;
-  }
-  .main__btn {
-    padding: 5px;
   }
   .container2 {
     display: block;

@@ -17,6 +17,8 @@ class CreatePerformancesTable extends Migration
             $table->id();
             $table->string('img_url')->default('https://scene-scope.s3.ap-northeast-1.amazonaws.com/default.png');
             $table->string('top_img_url')->default('https://scene-scope.s3.ap-northeast-1.amazonaws.com/default.png');
+            $table->string('map_img_url')->nullable();
+            $table->string('routing_guide', 200)->nullable();
             $table->string('title', 21);
             $table->string('description', 300);
             $table->string('zip')->nullable();

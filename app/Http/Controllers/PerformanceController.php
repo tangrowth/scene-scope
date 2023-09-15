@@ -10,6 +10,7 @@ use App\Models\Date;
 use Illuminate\Http\Request;
 use App\Http\Requests\PerformanceRequest;
 use App\Http\Requests\PerformanceEditRequest;
+use App\Http\Requests\MapRequest;
 use Illuminate\Support\Facades\Auth;
 use InterventionImage;
 use Illuminate\Support\Facades\Storage;
@@ -221,5 +222,39 @@ class PerformanceController extends Controller
         ];
         Performance::find($request->id)->update($form);
         return redirect('/performance/' . $request->id);
+    }
+
+    public function map($id){
+        $performance = Performance::find($id);
+        return view('frontend.performance.map', compact('performance'));
+    }
+
+    public function mapEdit($id){
+        $performance = Performance::find($id);
+        return view('backend.performance.map', compact('performance'));
+    }
+
+    public function mapUpdate(MapRequest $request) {
+        $performance = Performance::find($request->id);
+        if ($request->hasFile('map_img_url')) {
+            $uploadedImage = $request->file('map_img_url');
+            $uploadedImagePath = 'performance/map/' . time() . '.'
+            . $uploadedImage->getClientOriginalExtension();
+            Storage::disk('s3')->put($uploadedImagePath, file_get_contents($uploadedImage));
+            if ($performance->map_img_url) {
+                Storage::disk('s3')->delete(basename($performance->map_img_url));
+            }
+            $s3BucketUrl = rtrim(Storage::disk('s3')->url('/'), '/');
+            $s3BucketUrl = rtrim(Storage::disk('s3')->url('/'), '/');
+            $img_url = $s3BucketUrl . '/' . $uploadedImagePath;
+        } else {
+            $img_url = $performance->map_img_url;
+        }
+        $requestDate = [
+            'routing_guide' => $request->input('routing_guide'),
+            'map_img_url' => $img_url,
+        ];
+        $performance->update($requestDate);
+        return redirect()->route('performance', ['id'=>$request->id]);
     }
 }

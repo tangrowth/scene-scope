@@ -31,7 +31,7 @@
         @else
         <form action="{{ route('entry', ['id' => $reservation->id]) }}" method="post">
           @csrf
-          <button class="reserve__btn">入場</button>
+          <button class="btn">入場</button>
         </form>
         @endif
       </td>

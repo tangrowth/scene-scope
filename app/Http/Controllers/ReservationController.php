@@ -8,6 +8,7 @@ use App\Models\Date;
 use App\Models\Performance;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use App\Http\Requests\ReservationRequest;
 
 class ReservationController extends Controller
@@ -36,6 +37,7 @@ class ReservationController extends Controller
             'performance_id' => $request->input('performance_id'),
             'date_id' => $request->input('date_id'),
             'number' => $request->input('number'),
+            'uuid' => Str::uuid(),
             'is_used' => false,
         ];
         $action = $request->input('action');
@@ -98,8 +100,8 @@ class ReservationController extends Controller
         return view('backend.reservation.show', compact('reservations', 'input', 'date'));
     }
 
-    public function details(Request $request){
-        $reservation = Reservation::find($request->id);
+    public function details($uuid){
+        $reservation = Reservation::where('uuid',$uuid)->first();
         $user = Auth::user();
         return view ('frontend.reservation.show' , compact('reservation' , 'user'));
     }
