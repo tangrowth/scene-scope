@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="{{ asset('/css/reset.css')  }}">
   <link rel="stylesheet" href="{{ asset('/css/header.css')  }}">
   @yield('css')
-  <title>scene-scope</title>
+  <title>Scene Scope</title>
 </head>
 
 <body>
